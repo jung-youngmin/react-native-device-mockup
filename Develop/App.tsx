@@ -32,11 +32,69 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AndroidMockup />
+      <AndroidMockup screenWidth={200} orientaion="portrait">
+        <View style={styles.screenContainer}>
+          <View style={styles.appRow}>
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+          </View>
+          <View style={styles.appRow}>
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+          </View>
+          <View style={styles.appRow}>
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+          </View>
+        </View>
+      </AndroidMockup>
+      <AndroidMockup
+        screenWidth={350}
+        orientaion="landscape"
+        containerStlye={{marginTop: 30}}>
+        <View style={styles.screenContainer}>
+          <View style={styles.appRow}>
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+          </View>
+          <View style={styles.appRow}>
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+            <View style={styles.appIcon} />
+          </View>
+        </View>
+      </AndroidMockup>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    backgroundColor: '#dddddd',
+    paddingHorizontal: 8,
+    paddingTop: 16,
+  },
+  appRow: {
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  appIcon: {
+    width: 36,
+    height: 36,
+    backgroundColor: '#777777',
+    borderRadius: 8,
+  },
+});
 
 export default App;
