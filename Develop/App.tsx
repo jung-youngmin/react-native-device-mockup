@@ -8,10 +8,8 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
@@ -32,7 +30,12 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AndroidMockup screenWidth={200} orientaion="portrait">
+      <AndroidMockup
+        orientaion="portrait"
+        screenWidth={200}
+        screenRounded={true}
+        navigationBar="rhb"
+        containerStlye={{alignItems: 'center'}}>
         <View style={styles.screenContainer}>
           <View style={styles.appRow}>
             <View style={styles.appIcon} />
@@ -55,9 +58,11 @@ function App(): React.JSX.Element {
         </View>
       </AndroidMockup>
       <AndroidMockup
-        screenWidth={350}
         orientaion="landscape"
-        containerStlye={{marginTop: 30}}>
+        screenWidth={350}
+        screenRounded={true}
+        containerStlye={{marginTop: 30, alignItems: 'center'}}
+        navigationBar="rhb">
         <View style={styles.screenContainer}>
           <View style={styles.appRow}>
             <View style={styles.appIcon} />
@@ -82,7 +87,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#dddddd',
     paddingHorizontal: 8,
-    paddingTop: 16,
   },
   appRow: {
     marginTop: 16,
