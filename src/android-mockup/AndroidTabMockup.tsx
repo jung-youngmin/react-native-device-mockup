@@ -1,16 +1,16 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
-import AndroidPortrait from "./variants/phone/AndroidPortrait";
-import AndroidPortraitFullScreen from "./variants/phone/AndroidPortraitFullScreen";
-import AndroidLandscapeFullScreen from "./variants/phone/AndroidLandscapeFullScreen";
-import AndroidLandscape from "./variants/phone/AndroidLandscape";
+import AndroidTabPortrait from "./variants/tab/AndroidTabPortrait";
+import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
+import AndroidTabPortraitFullScreen from "./variants/tab/AndroidTabPortraitFullScreen";
+import AndroidTabLandscapeFullScreen from "./variants/tab/AndroidTabLandscapeFullScreen";
 
-interface IAndroidMockupProps {
+interface IAndroidTabMockupProps {
+	/** default: false */
+	readonly isLandscape?: boolean;
 	readonly screenWidth: number;
 	/** default: true */
 	readonly screenRounded?: boolean;
-	/** default: false */
-	readonly isLandscape?: boolean;
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
@@ -22,15 +22,15 @@ interface IAndroidMockupProps {
 	readonly isFullScreen?: boolean;
 }
 
-export type AndroidMockupProps = PropsWithChildren<IAndroidMockupProps>;
-export default function AndroidMockup(props: AndroidMockupProps) {
-	const screenRounded = useMemo(() => {
-		return props.screenRounded === undefined ? true : props.screenRounded;
-	}, [props.screenRounded]);
-
+export type AndroidTabMockupProps = PropsWithChildren<IAndroidTabMockupProps>;
+export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 	const isLandscape = useMemo(() => {
 		return props.isLandscape === undefined ? false : props.isLandscape;
 	}, [props.isLandscape]);
+
+	const screenRounded = useMemo(() => {
+		return props.screenRounded === undefined ? true : props.screenRounded;
+	}, [props.screenRounded]);
 
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
@@ -51,15 +51,15 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 	const Mockup = useMemo(() => {
 		if (isLandscape) {
 			if (isFullScreen) {
-				return AndroidLandscapeFullScreen;
+				return AndroidTabLandscapeFullScreen;
 			} else {
-				return AndroidLandscape;
+				return AndroidTabLandscape;
 			}
 		} else {
 			if (isFullScreen) {
-				return AndroidPortraitFullScreen;
+				return AndroidTabPortraitFullScreen;
 			} else {
-				return AndroidPortrait;
+				return AndroidTabPortrait;
 			}
 		}
 	}, [isLandscape, isFullScreen]);

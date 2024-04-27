@@ -10,12 +10,14 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AndroidMockup} from './dist';
+import {AndroidMockup, AndroidTabMockup} from './dist';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,54 +32,68 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AndroidMockup
-        orientaion="portrait"
-        screenWidth={200}
+      <AndroidTabMockup
+        isLandscape={false}
+        screenWidth={240}
         screenRounded={true}
-        navigationBar="rhb"
-        containerStlye={{alignItems: 'center'}}>
-        <View style={styles.screenContainer}>
-          <View style={styles.appRow}>
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
+        navigationBar="bhr"
+        isFullScreen={true}
+        // containerStlye={{alignItems: 'center'}}
+      >
+        <TouchableHighlight
+          style={{flex: 1}}
+          underlayColor={'red'}
+          onPress={() => {}}>
+          <View style={styles.screenContainer}>
+            <View style={styles.appRow}>
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+            </View>
+            <View style={styles.appRow}>
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+            </View>
+            <View style={styles.appRow}>
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+            </View>
           </View>
-          <View style={styles.appRow}>
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-          </View>
-          <View style={styles.appRow}>
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-          </View>
-        </View>
-      </AndroidMockup>
-      <AndroidMockup
-        orientaion="landscape"
-        screenWidth={350}
+        </TouchableHighlight>
+      </AndroidTabMockup>
+      <AndroidTabMockup
+        isLandscape={true}
+        screenWidth={360}
         screenRounded={true}
-        containerStlye={{marginTop: 30, alignItems: 'center'}}
+        isFullScreen={true}
+        // containerStlye={{marginTop: 30, alignItems: 'center'}}
+        containerStlye={{marginTop: 30}}
         navigationBar="rhb">
-        <View style={styles.screenContainer}>
-          <View style={styles.appRow}>
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
+        <TouchableHighlight
+          style={{flex: 1}}
+          underlayColor={'red'}
+          onPress={() => {}}>
+          <View style={styles.screenContainer}>
+            <View style={styles.appRow}>
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+            </View>
+            <View style={styles.appRow}>
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+              <View style={styles.appIcon} />
+            </View>
           </View>
-          <View style={styles.appRow}>
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-            <View style={styles.appIcon} />
-          </View>
-        </View>
-      </AndroidMockup>
+        </TouchableHighlight>
+      </AndroidTabMockup>
     </SafeAreaView>
   );
 }
