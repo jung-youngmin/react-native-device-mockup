@@ -1,8 +1,6 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
 import AndroidPortrait from "./variants/phone/AndroidPortrait";
-import AndroidPortraitFullScreen from "./variants/phone/AndroidPortraitFullScreen";
-import AndroidLandscapeFullScreen from "./variants/phone/AndroidLandscapeFullScreen";
 import AndroidLandscape from "./variants/phone/AndroidLandscape";
 
 interface IAndroidMockupProps {
@@ -19,7 +17,11 @@ interface IAndroidMockupProps {
 	/** default: "swipe" */
 	readonly navigationBar?: "swipe" | "bhr" | "rhb";
 	/** default: false */
-	readonly isFullScreen?: boolean;
+	readonly hideStatusBar?: boolean;
+	/** default: false */
+	readonly transparentNavigationBar?: boolean;
+	/** default: false */
+	readonly hideNavigationBar?: boolean;
 }
 
 export type AndroidMockupProps = PropsWithChildren<IAndroidMockupProps>;
@@ -44,36 +46,47 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
 	}, [props.navigationBar]);
 
-	const isFullScreen = useMemo(() => {
-		return props.isFullScreen === undefined ? false : props.isFullScreen;
-	}, [props.isFullScreen]);
+	const hideStatusBar = useMemo(() => {
+		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
+	}, [props.hideStatusBar]);
 
-	const Mockup = useMemo(() => {
-		if (isLandscape) {
-			if (isFullScreen) {
-				return AndroidLandscapeFullScreen;
-			} else {
-				return AndroidLandscape;
-			}
-		} else {
-			if (isFullScreen) {
-				return AndroidPortraitFullScreen;
-			} else {
-				return AndroidPortrait;
-			}
-		}
-	}, [isLandscape, isFullScreen]);
+	const transparentNavigationBar = useMemo(() => {
+		return props.transparentNavigationBar === undefined
+			? false
+			: props.transparentNavigationBar;
+	}, [props.transparentNavigationBar]);
+
+	const hideNavigationBar = useMemo(() => {
+		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
+	}, [props.hideNavigationBar]);
 
 	return (
 		<View style={props.containerStlye}>
-			<Mockup
-				screenWidth={props.screenWidth}
-				screenRounded={screenRounded}
-				frameColor={frameColor}
-				statusbarColor={statusbarColor}
-				navigationBar={navigationBar}>
-				{props.children}
-			</Mockup>
+			{isLandscape ? (
+				<AndroidLandscape
+					screenWidth={props.screenWidth}
+					screenRounded={screenRounded}
+					frameColor={frameColor}
+					statusbarColor={statusbarColor}
+					navigationBar={navigationBar}
+					hideStatusBar={hideStatusBar}
+					transparentNavigationBar={transparentNavigationBar}
+					hideNavigationBar={hideNavigationBar}>
+					{props.children}
+				</AndroidLandscape>
+			) : (
+				<AndroidPortrait
+					screenWidth={props.screenWidth}
+					screenRounded={screenRounded}
+					frameColor={frameColor}
+					statusbarColor={statusbarColor}
+					navigationBar={navigationBar}
+					hideStatusBar={hideStatusBar}
+					transparentNavigationBar={transparentNavigationBar}
+					hideNavigationBar={hideNavigationBar}>
+					{props.children}
+				</AndroidPortrait>
+			)}
 		</View>
 	);
 }

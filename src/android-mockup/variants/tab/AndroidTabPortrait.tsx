@@ -3,10 +3,19 @@ import { ColorValue, StyleSheet, View } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidTabPortrait(props: PropsWithChildren<IAndroidMockupVariantProps>) {
-	const { screenRounded, frameColor, statusbarColor, navigationBar } = props;
+	const {
+		screenWidth,
+		screenRounded,
+		frameColor,
+		statusbarColor,
+		navigationBar,
+		hideStatusBar,
+		hideNavigationBar,
+		transparentNavigationBar,
+	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(screenWidth, screenRounded, frameColor, statusbarColor);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor]);
 
 	return (
 		<View style={{}}>
@@ -15,34 +24,60 @@ export default function AndroidTabPortrait(props: PropsWithChildren<IAndroidMock
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* status bar */}
-					<View style={styles.statusbarPortrait}></View>
+					{hideStatusBar === false && <View style={styles.statusbarPortrait}></View>}
 					{/* screen content */}
 					<View style={{ flex: 1 }}>
 						<View style={{ flex: 1 }}>{props.children}</View>
 					</View>
 					{/* navigation bar - swipe */}
-					{navigationBar === "swipe" && (
-						<View style={styles.navigationSwipe}>
-							<View style={styles.navigationSwipeBar} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "swipe" &&
+						(transparentNavigationBar ? (
+							<View pointerEvents="none" style={styles.navigationSwipeTransparent}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						) : (
+							<View style={styles.navigationSwipe}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						))}
 					{/* navigation bar - portrait - bhr */}
-					{navigationBar === "bhr" && (
-						<View style={styles.navigationPortraitBHR}>
-							<View style={styles.triangle} />
-							<View style={styles.circle} />
-							<View style={styles.square} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "bhr" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationPortraitBhrTransparent}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						) : (
+							<View style={styles.navigationPortraitBHR}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						))}
 
 					{/* navigation bar - portrait - rhb */}
-					{navigationBar === "rhb" && (
-						<View style={styles.navigationPortraitBHR}>
-							<View style={styles.square} />
-							<View style={styles.circle} />
-							<View style={styles.triangle} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "rhb" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationPortraitBhrTransparent}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						) : (
+							<View style={styles.navigationPortraitBHR}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						))}
 				</View>
 			</View>
 			{/* camera - portrait */}
@@ -98,6 +133,14 @@ const getStyles = (
 			alignItems: "center",
 			justifyContent: "center",
 		},
+		navigationSwipeTransparent: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(60),
+			alignItems: "center",
+			justifyContent: "center",
+		},
 		navigationSwipeBar: {
 			backgroundColor: frameColor,
 			borderRadius: getSizeWithRatio(100),
@@ -108,6 +151,16 @@ const getStyles = (
 			width: "100%",
 			height: getSizeWithRatio(80),
 			backgroundColor: statusbarColor,
+			paddingLeft: screenWidth / 2,
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-evenly",
+		},
+		navigationPortraitBhrTransparent: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(80),
 			paddingLeft: screenWidth / 2,
 			flexDirection: "row",
 			alignItems: "center",

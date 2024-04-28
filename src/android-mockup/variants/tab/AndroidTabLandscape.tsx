@@ -3,7 +3,15 @@ import { ColorValue, StyleSheet, View } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMockupVariantProps>) {
-	const { screenRounded, frameColor, statusbarColor, navigationBar } = props;
+	const {
+		screenRounded,
+		frameColor,
+		statusbarColor,
+		navigationBar,
+		hideStatusBar,
+		hideNavigationBar,
+		transparentNavigationBar,
+	} = props;
 	const styles = useMemo(() => {
 		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
 	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
@@ -15,33 +23,59 @@ export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMoc
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* status bar */}
-					<View style={styles.statusbarPortrait}></View>
+					{hideStatusBar === false && <View style={styles.statusbarPortrait} />}
 					{/* screen content */}
 					<View style={{ flex: 1 }}>
 						<View style={{ flex: 1 }}>{props.children}</View>
 					</View>
 					{/* navigation bar - swipe */}
-					{navigationBar === "swipe" && (
-						<View style={styles.navigationSwipe}>
-							<View style={styles.navigationSwipeBar} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "swipe" &&
+						(transparentNavigationBar ? (
+							<View pointerEvents="none" style={styles.navigationSwipeTransparent}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						) : (
+							<View style={styles.navigationSwipe}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						))}
 					{/* navigation bar - landscape - bhr */}
-					{navigationBar === "bhr" && (
-						<View style={styles.navigationLandscapeBHR}>
-							<View style={styles.triangle} />
-							<View style={styles.circle} />
-							<View style={styles.square} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "bhr" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationLandscapeBhrTransparent}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						) : (
+							<View style={styles.navigationLandscapeBHR}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						))}
 					{/* navigation bar - landscape - rhb */}
-					{navigationBar === "rhb" && (
-						<View style={styles.navigationLandscapeBHR}>
-							<View style={styles.square} />
-							<View style={styles.circle} />
-							<View style={styles.triangle} />
-						</View>
-					)}
+					{hideNavigationBar === false &&
+						navigationBar === "rhb" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationLandscapeBhrTransparent}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						) : (
+							<View style={styles.navigationLandscapeBHR}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						))}
 				</View>
 			</View>
 			{/* camera - landscape */}
@@ -97,6 +131,14 @@ const getStyles = (
 			alignItems: "center",
 			justifyContent: "center",
 		},
+		navigationSwipeTransparent: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(60),
+			alignItems: "center",
+			justifyContent: "center",
+		},
 		navigationSwipeBar: {
 			backgroundColor: frameColor,
 			borderRadius: getSizeWithRatio(100),
@@ -107,6 +149,16 @@ const getStyles = (
 			width: "100%",
 			height: getSizeWithRatio(80),
 			backgroundColor: statusbarColor,
+			paddingLeft: (screenWidth / 3) * 2,
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-evenly",
+		},
+		navigationLandscapeBhrTransparent: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(80),
 			paddingLeft: (screenWidth / 3) * 2,
 			flexDirection: "row",
 			alignItems: "center",

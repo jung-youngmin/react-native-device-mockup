@@ -2,15 +2,13 @@ import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
 import AndroidTabPortrait from "./variants/tab/AndroidTabPortrait";
 import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
-import AndroidTabPortraitFullScreen from "./variants/tab/AndroidTabPortraitFullScreen";
-import AndroidTabLandscapeFullScreen from "./variants/tab/AndroidTabLandscapeFullScreen";
 
 interface IAndroidTabMockupProps {
+	readonly screenWidth: number;
+	readonly screenRounded?: boolean;
 	/** default: false */
 	readonly isLandscape?: boolean;
-	readonly screenWidth: number;
 	/** default: true */
-	readonly screenRounded?: boolean;
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
@@ -19,7 +17,11 @@ interface IAndroidTabMockupProps {
 	/** default: "swipe" */
 	readonly navigationBar?: "swipe" | "bhr" | "rhb";
 	/** default: false */
-	readonly isFullScreen?: boolean;
+	readonly hideStatusBar?: boolean;
+	/** default: false */
+	readonly transparentNavigationBar?: boolean;
+	/** default: false */
+	readonly hideNavigationBar?: boolean;
 }
 
 export type AndroidTabMockupProps = PropsWithChildren<IAndroidTabMockupProps>;
@@ -44,36 +46,47 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
 	}, [props.navigationBar]);
 
-	const isFullScreen = useMemo(() => {
-		return props.isFullScreen === undefined ? false : props.isFullScreen;
-	}, [props.isFullScreen]);
+	const hideStatusBar = useMemo(() => {
+		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
+	}, [props.hideStatusBar]);
 
-	const Mockup = useMemo(() => {
-		if (isLandscape) {
-			if (isFullScreen) {
-				return AndroidTabLandscapeFullScreen;
-			} else {
-				return AndroidTabLandscape;
-			}
-		} else {
-			if (isFullScreen) {
-				return AndroidTabPortraitFullScreen;
-			} else {
-				return AndroidTabPortrait;
-			}
-		}
-	}, [isLandscape, isFullScreen]);
+	const transparentNavigationBar = useMemo(() => {
+		return props.transparentNavigationBar === undefined
+			? false
+			: props.transparentNavigationBar;
+	}, [props.transparentNavigationBar]);
+
+	const hideNavigationBar = useMemo(() => {
+		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
+	}, [props.hideNavigationBar]);
 
 	return (
 		<View style={props.containerStlye}>
-			<Mockup
-				screenWidth={props.screenWidth}
-				screenRounded={screenRounded}
-				frameColor={frameColor}
-				statusbarColor={statusbarColor}
-				navigationBar={navigationBar}>
-				{props.children}
-			</Mockup>
+			{isLandscape ? (
+				<AndroidTabLandscape
+					screenWidth={props.screenWidth}
+					screenRounded={screenRounded}
+					frameColor={frameColor}
+					statusbarColor={statusbarColor}
+					navigationBar={navigationBar}
+					hideStatusBar={hideStatusBar}
+					transparentNavigationBar={transparentNavigationBar}
+					hideNavigationBar={hideNavigationBar}>
+					{props.children}
+				</AndroidTabLandscape>
+			) : (
+				<AndroidTabPortrait
+					screenWidth={props.screenWidth}
+					screenRounded={screenRounded}
+					frameColor={frameColor}
+					statusbarColor={statusbarColor}
+					navigationBar={navigationBar}
+					hideStatusBar={hideStatusBar}
+					transparentNavigationBar={transparentNavigationBar}
+					hideNavigationBar={hideNavigationBar}>
+					{props.children}
+				</AndroidTabPortrait>
+			)}
 		</View>
 	);
 }

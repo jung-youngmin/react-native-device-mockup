@@ -10,4 +10,10 @@ export interface IAndroidMockupVariantProps {
 	readonly statusbarColor: ColorValue;
 	/** default: "swipe" */
 	readonly navigationBar: "swipe" | "bhr" | "rhb";
+	/** default: false */
+	readonly hideStatusBar: boolean;
+	/** default: false */
+	readonly transparentNavigationBar: boolean;
+	/** default: false */
+	readonly hideNavigationBar: boolean;
 }

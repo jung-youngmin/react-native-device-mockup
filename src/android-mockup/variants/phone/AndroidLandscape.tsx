@@ -3,7 +3,15 @@ import { ColorValue, StyleSheet, View } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockupVariantProps>) {
-	const { screenRounded, frameColor, statusbarColor, navigationBar } = props;
+	const {
+		screenRounded,
+		frameColor,
+		statusbarColor,
+		navigationBar,
+		hideStatusBar,
+		hideNavigationBar,
+		transparentNavigationBar,
+	} = props;
 	const styles = useMemo(() => {
 		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
 	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
@@ -15,35 +23,76 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* status bar*/}
-					<View style={styles.statusbarLandscape}>
-						{/* camera - landscape */}
-						<View style={styles.cameraLandscape} />
-					</View>
+					{hideStatusBar === false && (
+						<View style={styles.statusbarLandscape}>
+							{/* camera */}
+							<View style={styles.cameraLandscape} />
+						</View>
+					)}
 					{/* screen content */}
 					<View style={{ flex: 1 }}>
 						<View style={{ flex: 1 }}>{props.children}</View>
-						{/* navigation bar - landscape - swipe */}
-						<View style={styles.navigationLandscapeSwipe}>
-							<View style={styles.navigationSwipeBar} />
-						</View>
+						{/* navigation bar - swipe */}
+						{hideNavigationBar === false &&
+							navigationBar === "swipe" &&
+							transparentNavigationBar === false && (
+								<View style={styles.navigationLandscapeSwipe}>
+									<View style={styles.navigationSwipeBar} />
+								</View>
+							)}
 					</View>
-					{/* navigation bar - landscape - bhr */}
-					{navigationBar === "bhr" && (
-						<View style={styles.navigationLandscapeBHR}>
-							<View style={styles.square} />
-							<View style={styles.circle} />
-							<View style={styles.triangle} />
-						</View>
-					)}
 
-					{/* navigation bar - landscape - rhb */}
-					{navigationBar === "rhb" && (
-						<View style={styles.navigationLandscapeBHR}>
-							<View style={styles.triangle} />
-							<View style={styles.circle} />
-							<View style={styles.square} />
-						</View>
-					)}
+					{/* camera - fullScreen */}
+					{hideStatusBar && <View style={styles.cameraFullScreenLandscape} />}
+
+					{/* navigation bar - fullScreen - swipe */}
+					{hideNavigationBar === false &&
+						navigationBar === "swipe" &&
+						transparentNavigationBar && (
+							<View
+								pointerEvents="none"
+								style={styles.navigationFullScreenLandscapeSwipe}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						)}
+
+					{/* navigation bar - bhr */}
+					{hideNavigationBar === false &&
+						navigationBar === "bhr" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationLandscapeBhrTransparent}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						) : (
+							<View style={styles.navigationLandscapeBHR}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						))}
+
+					{/* navigation bar - rhb */}
+					{hideNavigationBar === false &&
+						navigationBar === "rhb" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationLandscapeBhrTransparent}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						) : (
+							<View style={styles.navigationLandscapeBHR}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						))}
 				</View>
 			</View>
 			<View style={styles.volumeLandscape} />
@@ -96,6 +145,14 @@ const getStyles = (
 			alignItems: "center",
 			justifyContent: "center",
 		},
+		navigationFullScreenLandscapeSwipe: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(50),
+			alignItems: "center",
+			justifyContent: "center",
+		},
 		navigationSwipeBar: {
 			backgroundColor: frameColor,
 			borderRadius: getSizeWithRatio(100),
@@ -107,6 +164,15 @@ const getStyles = (
 			height: "100%",
 			paddingVertical: getSizeWithRatio(260),
 			backgroundColor: statusbarColor,
+			alignItems: "center",
+			justifyContent: "space-between",
+		},
+		navigationLandscapeBhrTransparent: {
+			position: "absolute",
+			right: 0,
+			width: getSizeWithRatio(120),
+			height: "100%",
+			paddingVertical: getSizeWithRatio(260),
 			alignItems: "center",
 			justifyContent: "space-between",
 		},
@@ -162,6 +228,16 @@ const getStyles = (
 			borderRadius: getSizeWithRatio(55),
 			backgroundColor: frameColor,
 			marginLeft: getSizeWithRatio(20),
+		},
+		cameraFullScreenLandscape: {
+			position: "absolute",
+			alignSelf: "center",
+			verticalAlign: "middle",
+			left: getSizeWithRatio(20),
+			width: getSizeWithRatio(55),
+			height: getSizeWithRatio(55),
+			borderRadius: getSizeWithRatio(55),
+			backgroundColor: frameColor,
 		},
 	});
 };

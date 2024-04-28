@@ -3,50 +3,90 @@ import { ColorValue, StyleSheet, View } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupVariantProps>) {
-	const { screenRounded, frameColor, statusbarColor, navigationBar } = props;
+	const {
+		screenWidth,
+		screenRounded,
+		frameColor,
+		statusbarColor,
+		navigationBar,
+		hideStatusBar,
+		hideNavigationBar,
+		transparentNavigationBar,
+	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(screenWidth, screenRounded, frameColor, statusbarColor);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor]);
 
 	return (
-		<View>
+		<View style={{ borderWidth: 1 }}>
 			{/* frame */}
 			<View style={styles.frame}>
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* status bar*/}
-					<View style={styles.statusbarPortrait}>
-						{/* camera - portrait */}
-						<View style={styles.cameraPortrait} />
-					</View>
+					{hideStatusBar === false && (
+						<View style={styles.statusbarPortrait}>
+							{/* camera - portrait */}
+							<View style={styles.cameraPortrait} />
+						</View>
+					)}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>
-						<View style={{ flex: 1 }}>{props.children}</View>
-					</View>
+					<View style={{ flex: 1 }}>{props.children}</View>
+					{/* camera - fullScreen - portrait */}
+					{hideStatusBar && <View style={styles.cameraFullScreenPortrait} />}
 
-					{/* navigation bar - portrait - swipe */}
-					{navigationBar === "swipe" && (
-						<View style={styles.navigationPortraitSwipe}>
-							<View style={styles.navigationSwipeBar} />
-						</View>
-					)}
-					{/* navigation bar - portrait - bhr */}
-					{navigationBar === "bhr" && (
-						<View style={styles.navigationPortraitBHR}>
-							<View style={styles.triangle} />
-							<View style={styles.circle} />
-							<View style={styles.square} />
-						</View>
-					)}
+					{/* navigation bar - swipe */}
+					{hideNavigationBar === false &&
+						navigationBar === "swipe" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationFullScreenPortraitSwipe}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						) : (
+							<View style={styles.navigationPortraitSwipe}>
+								<View style={styles.navigationSwipeBar} />
+							</View>
+						))}
 
-					{/* navigation bar - portrait - rhb */}
-					{navigationBar === "rhb" && (
-						<View style={styles.navigationPortraitBHR}>
-							<View style={styles.square} />
-							<View style={styles.circle} />
-							<View style={styles.triangle} />
-						</View>
-					)}
+					{/* navigation bar - bhr */}
+					{hideNavigationBar === false &&
+						navigationBar === "bhr" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationPortraitBhrTransParent}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						) : (
+							<View style={styles.navigationPortraitBHR}>
+								<View style={styles.triangle} />
+								<View style={styles.circle} />
+								<View style={styles.square} />
+							</View>
+						))}
+
+					{/* navigation bar - rhb */}
+					{hideNavigationBar === false &&
+						navigationBar === "rhb" &&
+						(transparentNavigationBar ? (
+							<View
+								pointerEvents="none"
+								style={styles.navigationPortraitBhrTransParent}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						) : (
+							<View style={styles.navigationPortraitBHR}>
+								<View style={styles.square} />
+								<View style={styles.circle} />
+								<View style={styles.triangle} />
+							</View>
+						))}
 				</View>
 			</View>
 			<View style={styles.volumePortrait} />
@@ -113,9 +153,19 @@ const getStyles = (
 			alignItems: "center",
 			justifyContent: "space-between",
 		},
+		navigationPortraitBhrTransParent: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(120),
+			paddingHorizontal: getSizeWithRatio(260),
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-between",
+		},
 		volumePortrait: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH + 15) + HALF_FRAME_WIDTH,
+			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
 			top: getSizeWithRatio(420),
 			left: screenWidth + FRAME_WIDTH + Math.round(HALF_FRAME_WIDTH),
 			width: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
@@ -165,6 +215,23 @@ const getStyles = (
 			borderRadius: getSizeWithRatio(55),
 			backgroundColor: frameColor,
 			marginTop: getSizeWithRatio(20),
+		},
+		cameraFullScreenPortrait: {
+			position: "absolute",
+			alignSelf: "center",
+			top: getSizeWithRatio(20),
+			width: getSizeWithRatio(55),
+			height: getSizeWithRatio(55),
+			borderRadius: getSizeWithRatio(55),
+			backgroundColor: frameColor,
+		},
+		navigationFullScreenPortraitSwipe: {
+			position: "absolute",
+			bottom: 0,
+			width: "100%",
+			height: getSizeWithRatio(60),
+			alignItems: "center",
+			justifyContent: "center",
 		},
 	});
 };
