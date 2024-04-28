@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AndroidMockup, AndroidTabMockup} from './dist';
+import {AndroidMockup, AndroidTabMockup, IPhoneMockup} from './dist';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,12 +32,16 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <AndroidTabMockup
-        isLandscape={false}
+      <IPhoneMockup
         screenWidth={240}
-        screenRounded={true}
-        navigationBar="bhr"
-        isFullScreen={true}
+        screenType="island"
+        isLandscape={false}
+        // navigationBar="rhb"
+        // hideStatusBar
+        // transparentNavigationBar
+        // hideNavigationBar
+        // statusbarColor={'#dddddd'}
+        containerStlye={{marginLeft: 20}}
         // containerStlye={{alignItems: 'center'}}
       >
         <TouchableHighlight
@@ -65,15 +69,16 @@ function App(): React.JSX.Element {
             </View>
           </View>
         </TouchableHighlight>
-      </AndroidTabMockup>
-      <AndroidTabMockup
+      </IPhoneMockup>
+      <IPhoneMockup
         isLandscape={true}
-        screenWidth={360}
-        screenRounded={true}
-        isFullScreen={true}
-        // containerStlye={{marginTop: 30, alignItems: 'center'}}
-        containerStlye={{marginTop: 30}}
-        navigationBar="rhb">
+        screenWidth={380}
+        // hideStatusBar
+        // hideNavigationBar
+        // transparentNavigationBar
+        containerStlye={{marginTop: 30, marginLeft: 10}}
+        // navigationBar="rhb"
+      >
         <TouchableHighlight
           style={{flex: 1}}
           underlayColor={'red'}
@@ -93,7 +98,7 @@ function App(): React.JSX.Element {
             </View>
           </View>
         </TouchableHighlight>
-      </AndroidTabMockup>
+      </IPhoneMockup>
     </SafeAreaView>
   );
 }

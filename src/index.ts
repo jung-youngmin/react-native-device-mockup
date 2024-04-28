@@ -3,3 +3,4 @@ export {
 	default as AndroidTabMockup,
 	AndroidTabMockupProps,
 } from "./android-mockup/AndroidTabMockup";
+export { default as IPhoneMockup, IPhoneMockupProps } from "./ios-mockup/IPhoneMockup";
