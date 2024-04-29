@@ -4,6 +4,8 @@ import IPhoneNotchPortrait from "./variants/phone/IPhoneNotchPortrait";
 import IPhoneNotchLandscape from "./variants/phone/IPhoneNotchLandscape";
 import IPhoneIslandPortrait from "./variants/phone/IPhoneIslandPortrait";
 import IPhoneIslandLandscape from "./variants/phone/IPhoneIslandLandscape";
+import IPhoneLegacyPortrait from "./variants/phone/IPhoneLegacyPortrait";
+import IPhoneLegacyLandscape from "./variants/phone/IPhoneLegacyLandscape";
 
 interface IiPhoneMockupProps {
 	readonly screenWidth: number;
@@ -59,10 +61,14 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
 	const Mockup = useMemo(() => {
 		switch (screenType) {
 			case "legacy":
+				// 무시
+				// hideNavigationBar,
+				// transparentNavigationBar,
 				if (isLandscape) {
-					return IPhoneNotchLandscape;
+					// hideStatusBar 무시
+					return IPhoneLegacyLandscape;
 				} else {
-					return IPhoneNotchPortrait;
+					return IPhoneLegacyPortrait;
 				}
 			case "notch":
 				if (isLandscape) {

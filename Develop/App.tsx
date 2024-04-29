@@ -11,7 +11,6 @@ import {
   StatusBar,
   StyleSheet,
   TouchableHighlight,
-  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
@@ -33,15 +32,15 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <IPhoneMockup
-        screenWidth={240}
-        screenType="island"
+        screenWidth={200}
+        screenType="legacy"
         isLandscape={false}
         // navigationBar="rhb"
         // hideStatusBar
         // transparentNavigationBar
         // hideNavigationBar
         // statusbarColor={'#dddddd'}
-        containerStlye={{marginLeft: 20}}
+        containerStlye={{marginLeft: 20, marginTop: 28}}
         // containerStlye={{alignItems: 'center'}}
       >
         <TouchableHighlight
@@ -72,7 +71,8 @@ function App(): React.JSX.Element {
       </IPhoneMockup>
       <IPhoneMockup
         isLandscape={true}
-        screenWidth={380}
+        screenWidth={280}
+        screenType="legacy"
         // hideStatusBar
         // hideNavigationBar
         // transparentNavigationBar
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: '#dddddd',
+    // backgroundColor: 'green',
     paddingHorizontal: 8,
   },
   appRow: {
