@@ -9,32 +9,30 @@ export default function IPhoneLegacyLandscape(props: PropsWithChildren<IIosMocku
 	}, [screenWidth, frameColor, statusbarColor]);
 
 	return (
-		<View>
-			<View style={styles.container}>
-				<View style={styles.upperBezel}>
-					<View style={styles.camSpeakerCont}>
-						<View style={styles.speaker}>
-							<View style={styles.camera}></View>
-						</View>
+		<View style={styles.container}>
+			<View style={styles.upperBezel}>
+				<View style={styles.camSpeakerCont}>
+					<View style={styles.speaker}>
+						<View style={styles.camera}></View>
 					</View>
 				</View>
-				{/* frame */}
-				<View style={styles.frame}>
-					{/* screen */}
-					<View style={styles.screen}>
-						{/* screen content */}
-						<View style={{ flex: 1 }}>{props.children}</View>
-					</View>
-				</View>
-				<View style={styles.lowerBezel}>
-					<View style={styles.homeButoon}></View>
-				</View>
-
-				<View style={styles.silenceSwitch} />
-				<View style={styles.volumeUp} />
-				<View style={styles.volumeDown} />
-				<View style={styles.power} />
 			</View>
+			{/* frame */}
+			<View style={styles.frame}>
+				{/* screen */}
+				<View style={styles.screen}>
+					{/* screen content */}
+					<View style={{ flex: 1 }}>{props.children}</View>
+				</View>
+			</View>
+			<View style={styles.lowerBezel}>
+				<View style={styles.homeButoon}></View>
+			</View>
+
+			<View style={styles.silenceSwitch} />
+			<View style={styles.volumeUp} />
+			<View style={styles.volumeDown} />
+			<View style={styles.power} />
 		</View>
 	);
 }
@@ -66,6 +64,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
 			flexDirection: "row",
+			marginVertical: frameButtonHeight - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			backgroundColor: frameColor,

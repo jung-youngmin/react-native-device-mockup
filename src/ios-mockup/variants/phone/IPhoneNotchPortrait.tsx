@@ -15,7 +15,7 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 	}, [props.screenWidth, frameColor, statusbarColor]);
 
 	return (
-		<View>
+		<View style={styles.container}>
 			{/* frame */}
 			<View style={styles.frame}>
 				{/* screen */}
@@ -44,6 +44,7 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 					</View>
 				)}
 			</View>
+			<View style={styles.notchPad} />
 			<View style={styles.silenceSwitch} />
 			<View style={styles.volumeUp} />
 			<View style={styles.volumeDown} />
@@ -61,13 +62,27 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 	const FRAME_WIDTH = getSizeWithRatio(14);
 	const HALF_FRAME_WIDTH = Math.floor(FRAME_WIDTH / 2);
 
-	const mHeight = Math.round((screenWidth / 9) * 19.5);
+	const mHeight = Math.floor((screenWidth / 9) * 19.5);
+	const widthAndFrame = screenWidth + FRAME_WIDTH * 2;
+	const heightAndFrame = mHeight + FRAME_WIDTH * 2;
+
+	const bezelRadius = getSizeWithRatio(64);
+
+	const frameButtonWidth = Math.floor(FRAME_WIDTH * 0.9);
+	const frameButtonPosition = screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH;
 
 	return StyleSheet.create({
+		container: {
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: bezelRadius,
+			backgroundColor: frameColor,
+			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
+		},
 		frame: {
-			width: screenWidth + FRAME_WIDTH * 2,
-			height: mHeight + FRAME_WIDTH * 2,
-			borderRadius: getSizeWithRatio(64),
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: bezelRadius,
 			borderWidth: FRAME_WIDTH,
 			borderColor: frameColor,
 			overflow: "hidden",
@@ -120,38 +135,46 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 		},
 		silenceSwitch: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(165),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(34),
 			backgroundColor: frameColor,
 		},
 		volumeUp: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(230),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(65),
 			backgroundColor: frameColor,
 		},
 		volumeDown: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(315),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(65),
 			backgroundColor: frameColor,
 		},
 		powerPortrait: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(250),
-			left: screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			left: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(105),
+			backgroundColor: frameColor,
+		},
+		notchPad: {
+			alignSelf: "center",
+			position: "absolute",
+			top: HALF_FRAME_WIDTH,
+			width: getSizeWithRatio(160),
+			height: getSizeWithRatio(20),
 			backgroundColor: frameColor,
 		},
 	});

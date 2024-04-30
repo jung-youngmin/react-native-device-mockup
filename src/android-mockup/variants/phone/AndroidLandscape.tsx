@@ -17,7 +17,7 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
 
 	return (
-		<View>
+		<View style={styles.container}>
 			{/* frame */}
 			<View style={styles.frame}>
 				{/* screen */}
@@ -31,6 +31,7 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 					)}
 					{/* screen content */}
 					<View style={{ flex: 1 }}>
+						{hideStatusBar === false && <View style={styles.statusbar} />}
 						<View style={{ flex: 1 }}>{props.children}</View>
 						{/* navigation bar - swipe */}
 						{hideNavigationBar === false &&
@@ -108,19 +109,33 @@ const getStyles = (
 	statusbarColor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
-		const sizeRatio = Math.round((screenWidth * size) / 2340);
+		const sizeRatio = Math.floor((screenWidth * size) / 2340);
 		return Math.max(sizeRatio, 1);
 	};
 
-	const FRAME_WIDTH = getSizeWithRatio(30);
-	const HALF_FRAME_WIDTH = Math.round(FRAME_WIDTH / 2);
+	const FRAME_WIDTH = getSizeWithRatio(32);
+	const HALF_FRAME_WIDTH = Math.floor(FRAME_WIDTH / 2);
 
-	const mHeight = Math.round((screenWidth / 19.5) * 9);
+	const mHeight = Math.floor((screenWidth / 19.5) * 9);
+	const widthAndFrame = screenWidth + FRAME_WIDTH * 2;
+	const heightAndFrame = mHeight + FRAME_WIDTH * 2;
+
+	const frameButtonHeight = Math.floor(FRAME_WIDTH * 0.9);
+	const frameButtonPosition = mHeight + FRAME_WIDTH + HALF_FRAME_WIDTH;
+
+	const subItemSize = getSizeWithRatio(60);
 
 	return StyleSheet.create({
+		container: {
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
+			backgroundColor: frameColor,
+			marginTop: frameButtonHeight - HALF_FRAME_WIDTH + 1,
+		},
 		frame: {
-			width: screenWidth + FRAME_WIDTH * 2,
-			height: mHeight + FRAME_WIDTH * 2,
+			width: widthAndFrame,
+			height: heightAndFrame,
 			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
 			borderWidth: FRAME_WIDTH,
 			borderColor: frameColor,
@@ -137,6 +152,11 @@ const getStyles = (
 			height: "100%",
 			backgroundColor: statusbarColor,
 			justifyContent: "center",
+		},
+		statusbar: {
+			width: "100%",
+			height: getSizeWithRatio(50),
+			backgroundColor: statusbarColor,
 		},
 		navigationLandscapeSwipe: {
 			width: "100%",
@@ -178,20 +198,20 @@ const getStyles = (
 		},
 		volumeLandscape: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			left: getSizeWithRatio(420),
-			bottom: mHeight + FRAME_WIDTH + Math.round(HALF_FRAME_WIDTH),
+			bottom: frameButtonPosition,
 			width: getSizeWithRatio(330),
-			height: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			height: frameButtonHeight,
 			backgroundColor: frameColor,
 		},
 		powerLandscape: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			left: getSizeWithRatio(900),
-			bottom: mHeight + FRAME_WIDTH + Math.round(HALF_FRAME_WIDTH),
+			bottom: frameButtonPosition,
 			width: getSizeWithRatio(180),
-			height: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			height: frameButtonHeight,
 			backgroundColor: frameColor,
 		},
 		triangle: {
@@ -199,9 +219,9 @@ const getStyles = (
 			height: 0,
 			backgroundColor: "transparent",
 			borderStyle: "solid",
-			borderLeftWidth: getSizeWithRatio(55) / 2,
-			borderRightWidth: getSizeWithRatio(55) / 2,
-			borderBottomWidth: getSizeWithRatio(55),
+			borderLeftWidth: subItemSize / 2,
+			borderRightWidth: subItemSize / 2,
+			borderBottomWidth: subItemSize,
 			borderLeftColor: "transparent",
 			borderRightColor: "transparent",
 			borderBottomColor: frameColor,
@@ -209,23 +229,23 @@ const getStyles = (
 			transform: [{ rotate: "-90deg" }],
 		},
 		circle: {
-			width: getSizeWithRatio(55),
-			height: getSizeWithRatio(55),
-			borderRadius: getSizeWithRatio(55),
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize,
 			backgroundColor: frameColor,
 			opacity: 0.6,
 		},
 		square: {
-			width: getSizeWithRatio(55),
-			height: getSizeWithRatio(55),
-			borderRadius: getSizeWithRatio(55) / 10,
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize / 10,
 			backgroundColor: frameColor,
 			opacity: 0.6,
 		},
 		cameraLandscape: {
-			width: getSizeWithRatio(55),
-			height: getSizeWithRatio(55),
-			borderRadius: getSizeWithRatio(55),
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize,
 			backgroundColor: frameColor,
 			marginLeft: getSizeWithRatio(20),
 		},
@@ -234,9 +254,9 @@ const getStyles = (
 			alignSelf: "center",
 			verticalAlign: "middle",
 			left: getSizeWithRatio(20),
-			width: getSizeWithRatio(55),
-			height: getSizeWithRatio(55),
-			borderRadius: getSizeWithRatio(55),
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize,
 			backgroundColor: frameColor,
 		},
 	});

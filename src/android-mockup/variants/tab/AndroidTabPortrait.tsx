@@ -18,7 +18,7 @@ export default function AndroidTabPortrait(props: PropsWithChildren<IAndroidMock
 	}, [screenWidth, screenRounded, frameColor, statusbarColor]);
 
 	return (
-		<View style={{}}>
+		<View style={styles.container}>
 			{/* frame */}
 			<View style={styles.frame}>
 				{/* screen */}
@@ -97,19 +97,33 @@ const getStyles = (
 	statusbarColor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
-		const sizeRatio = Math.round((screenWidth * size) / 1600);
+		const sizeRatio = Math.floor((screenWidth * size) / 1600);
 		return Math.max(sizeRatio, 1);
 	};
 
 	const FRAME_WIDTH = getSizeWithRatio(100);
-	const HALF_FRAME_WIDTH = Math.round(FRAME_WIDTH / 2);
+	const HALF_FRAME_WIDTH = Math.floor(FRAME_WIDTH / 2);
 
-	const mHeight = Math.round((screenWidth / 10) * 16);
+	const mHeight = Math.floor((screenWidth / 10) * 16);
+	const widthAndFrame = screenWidth + FRAME_WIDTH * 2;
+	const heightAndFrame = mHeight + FRAME_WIDTH * 2;
+
+	const frameButtonWidth = Math.floor(FRAME_WIDTH * 0.7);
+	const frameButtonPosition = screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH;
+
+	const subItemSize = getSizeWithRatio(45);
 
 	return StyleSheet.create({
+		container: {
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
+			backgroundColor: frameColor,
+			marginRight: frameButtonWidth - HALF_FRAME_WIDTH + 1,
+		},
 		frame: {
-			width: screenWidth + FRAME_WIDTH * 2,
-			height: mHeight + FRAME_WIDTH * 2,
+			width: widthAndFrame,
+			height: heightAndFrame,
 			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
 			borderWidth: FRAME_WIDTH,
 			borderColor: frameColor,
@@ -168,19 +182,19 @@ const getStyles = (
 		},
 		powerPortrait: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(300),
-			left: screenWidth + FRAME_WIDTH + Math.round(HALF_FRAME_WIDTH),
-			width: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			left: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(180),
 			backgroundColor: frameColor,
 		},
 		volumePortrait: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(600),
-			left: screenWidth + FRAME_WIDTH + Math.round(HALF_FRAME_WIDTH),
-			width: getSizeWithRatio(HALF_FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			left: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(330),
 			backgroundColor: frameColor,
 		},
@@ -189,9 +203,9 @@ const getStyles = (
 			height: 0,
 			backgroundColor: "transparent",
 			borderStyle: "solid",
-			borderLeftWidth: getSizeWithRatio(45) / 2,
-			borderRightWidth: getSizeWithRatio(45) / 2,
-			borderBottomWidth: getSizeWithRatio(45),
+			borderLeftWidth: subItemSize / 2,
+			borderRightWidth: subItemSize / 2,
+			borderBottomWidth: subItemSize,
 			borderLeftColor: "transparent",
 			borderRightColor: "transparent",
 			borderBottomColor: frameColor,
@@ -199,16 +213,16 @@ const getStyles = (
 			transform: [{ rotate: "-90deg" }],
 		},
 		circle: {
-			width: getSizeWithRatio(45),
-			height: getSizeWithRatio(45),
-			borderRadius: getSizeWithRatio(45),
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize,
 			backgroundColor: frameColor,
 			opacity: 0.6,
 		},
 		square: {
-			width: getSizeWithRatio(45),
-			height: getSizeWithRatio(45),
-			borderRadius: getSizeWithRatio(45) / 10,
+			width: subItemSize,
+			height: subItemSize,
+			borderRadius: subItemSize / 10,
 			backgroundColor: frameColor,
 			opacity: 0.6,
 		},

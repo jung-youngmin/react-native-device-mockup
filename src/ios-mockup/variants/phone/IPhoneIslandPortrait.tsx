@@ -15,7 +15,7 @@ export default function IPhoneIslandPortrait(props: PropsWithChildren<IIosMockup
 	}, [props.screenWidth, frameColor, statusbarColor]);
 
 	return (
-		<View>
+		<View style={styles.container}>
 			{/* frame */}
 			<View style={styles.frame}>
 				{/* screen */}
@@ -61,13 +61,27 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 	const FRAME_WIDTH = getSizeWithRatio(10);
 	const HALF_FRAME_WIDTH = Math.floor(FRAME_WIDTH / 2);
 
-	const mHeight = Math.round((screenWidth / 9) * 19.5);
+	const mHeight = Math.floor((screenWidth / 9) * 19.5);
+	const widthAndFrame = screenWidth + FRAME_WIDTH * 2;
+	const heightAndFrame = mHeight + FRAME_WIDTH * 2;
+
+	const bezelRadius = getSizeWithRatio(68);
+
+	const frameButtonWidth = Math.floor(FRAME_WIDTH * 1);
+	const frameButtonPosition = screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH;
 
 	return StyleSheet.create({
+		container: {
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: bezelRadius,
+			backgroundColor: frameColor,
+			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
+		},
 		frame: {
-			width: screenWidth + FRAME_WIDTH * 2,
-			height: mHeight + FRAME_WIDTH * 2,
-			borderRadius: getSizeWithRatio(68),
+			width: widthAndFrame,
+			height: heightAndFrame,
+			borderRadius: bezelRadius,
 			borderWidth: FRAME_WIDTH,
 			borderColor: frameColor,
 			overflow: "hidden",
@@ -120,37 +134,37 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 		},
 		silenceSwitch: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(165),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(34),
 			backgroundColor: frameColor,
 		},
 		volumeUp: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(230),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(65),
 			backgroundColor: frameColor,
 		},
 		volumeDown: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(315),
-			left: -HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			right: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(65),
 			backgroundColor: frameColor,
 		},
 		powerPortrait: {
 			position: "absolute",
-			borderRadius: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			borderRadius: FRAME_WIDTH,
 			top: getSizeWithRatio(280),
-			left: screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(FRAME_WIDTH) + HALF_FRAME_WIDTH,
+			left: frameButtonPosition,
+			width: frameButtonWidth,
 			height: getSizeWithRatio(105),
 			backgroundColor: frameColor,
 		},

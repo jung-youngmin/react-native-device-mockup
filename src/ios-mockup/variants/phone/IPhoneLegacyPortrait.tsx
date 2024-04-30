@@ -9,33 +9,31 @@ export default function IPhoneLegacyPortrait(props: PropsWithChildren<IIosMockup
 	}, [screenWidth, frameColor, statusbarColor]);
 
 	return (
-		<View>
-			<View style={styles.container}>
-				<View style={styles.upperBezel}>
-					<View style={styles.camSpeakerCont}>
-						<View style={styles.speaker}>
-							<View style={styles.camera}></View>
-						</View>
+		<View style={styles.container}>
+			<View style={styles.upperBezel}>
+				<View style={styles.camSpeakerCont}>
+					<View style={styles.speaker}>
+						<View style={styles.camera}></View>
 					</View>
 				</View>
-				{/* frame */}
-				<View style={styles.frame}>
-					{/* screen */}
-					<View style={styles.screen}>
-						{hideStatusBar === false && <View style={styles.statusbar}></View>}
-						{/* screen content */}
-						<View style={{ flex: 1 }}>{props.children}</View>
-					</View>
-				</View>
-				<View style={styles.lowerBezel}>
-					<View style={styles.homeButoon}></View>
-				</View>
-
-				<View style={styles.silenceSwitch} />
-				<View style={styles.volumeUp} />
-				<View style={styles.volumeDown} />
-				<View style={styles.powerPortrait} />
 			</View>
+			{/* frame */}
+			<View style={styles.frame}>
+				{/* screen */}
+				<View style={styles.screen}>
+					{hideStatusBar === false && <View style={styles.statusbar}></View>}
+					{/* screen content */}
+					<View style={{ flex: 1 }}>{props.children}</View>
+				</View>
+			</View>
+			<View style={styles.lowerBezel}>
+				<View style={styles.homeButoon}></View>
+			</View>
+
+			<View style={styles.silenceSwitch} />
+			<View style={styles.volumeUp} />
+			<View style={styles.volumeDown} />
+			<View style={styles.powerPortrait} />
 		</View>
 	);
 }
@@ -64,6 +62,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			height: mHeight + upperBezelHeight + lowerBezelHeight,
 			borderRadius: getSizeWithRatio(60),
 			backgroundColor: frameColor,
+			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			backgroundColor: frameColor,
