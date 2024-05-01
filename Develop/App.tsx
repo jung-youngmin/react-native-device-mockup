@@ -20,7 +20,12 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AndroidMockup, AndroidTabMockup, IPhoneMockup} from './dist';
+import {
+  AndroidMockup,
+  AndroidTabMockup,
+  IPadMockup,
+  IPhoneMockup,
+} from './dist';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,12 +39,16 @@ function App(): React.JSX.Element {
   const [showIphoneLegacy, setShowIphoneLegacy] = useState(false);
   const [showIphoneNotch, setShowIphoneNotch] = useState(false);
   const [showIphoneIsland, setShowIphoneIsland] = useState(false);
+  const [showIpadLegacy, setShowIpadLegacy] = useState(false);
+  const [showIpadModern, setShowIpadModern] = useState(false);
 
   const onPressAndPhone = useCallback(() => {
     setShowAndroidTab(false);
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowAndroidPhone(prev => !prev);
   }, []);
@@ -50,6 +59,8 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowAndroidTab(prev => !prev);
   }, []);
@@ -60,6 +71,8 @@ function App(): React.JSX.Element {
 
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowIphoneLegacy(prev => !prev);
   }, []);
@@ -70,6 +83,8 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
 
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowIphoneNotch(prev => !prev);
   }, []);
@@ -80,7 +95,33 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
 
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
+
     setShowIphoneIsland(prev => !prev);
+  }, []);
+
+  const onPressIpadLegacy = useCallback(() => {
+    setShowAndroidPhone(false);
+    setShowAndroidTab(false);
+    setShowIphoneLegacy(false);
+    setShowIphoneNotch(false);
+    setShowIphoneIsland(false);
+
+    setShowIpadModern(false);
+
+    setShowIpadLegacy(prev => !prev);
+  }, []);
+
+  const onPressIpadModern = useCallback(() => {
+    setShowAndroidPhone(false);
+    setShowAndroidTab(false);
+    setShowIphoneLegacy(false);
+    setShowIphoneNotch(false);
+    setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+
+    setShowIpadModern(prev => !prev);
   }, []);
 
   const mockupContainerStyle = useMemo<ViewStyle>(() => {
@@ -95,30 +136,44 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaView style={backgroundStyle}>
       <View style={styles.buttons}>
+        <Text>Phone</Text>
         <ColorButton
-          title="A-Phone"
+          title="Android"
           isActive={showAndroidPhone}
           onPress={onPressAndPhone}
         />
         <ColorButton
-          title="A-Tab"
-          isActive={showAndroidTab}
-          onPress={onPressAndTab}
-        />
-        <ColorButton
-          title="i-legacy"
+          title="iPhone-legacy"
           isActive={showIphoneLegacy}
           onPress={onPressIphoneLegacy}
         />
         <ColorButton
-          title="i-notch"
+          title="iPhone-notch"
           isActive={showIphoneNotch}
           onPress={onPressIphoneNotch}
         />
         <ColorButton
-          title="i-island"
+          title="iPhone-island"
           isActive={showIphoneIsland}
           onPress={onPressIphoneIsland}
+        />
+      </View>
+      <View style={styles.buttons}>
+        <Text>Tablet</Text>
+        <ColorButton
+          title="Android"
+          isActive={showAndroidTab}
+          onPress={onPressAndTab}
+        />
+        <ColorButton
+          title="iPad-legacy"
+          isActive={showIpadLegacy}
+          onPress={onPressIpadLegacy}
+        />
+        <ColorButton
+          title="iPad-modern"
+          isActive={showIpadModern}
+          onPress={onPressIpadModern}
         />
       </View>
       <StatusBar
@@ -250,6 +305,56 @@ function App(): React.JSX.Element {
           </IPhoneMockup>
         </>
       )}
+      {showIpadLegacy && (
+        <>
+          <IPadMockup
+            screenWidth={240}
+            screenType="legacy"
+            isLandscape={false}
+            // hideStatusBar
+            // transparentNavigationBar
+            // hideNavigationBar
+            // statusbarColor={'#dddddd'}
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+          <IPadMockup
+            isLandscape={true}
+            screenWidth={300}
+            screenType="legacy"
+            // hideStatusBar
+            // hideNavigationBar
+            // transparentNavigationBar
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+        </>
+      )}
+      {showIpadModern && (
+        <>
+          <IPadMockup
+            screenWidth={300}
+            screenType="modern"
+            isLandscape={false}
+            // hideStatusBar
+            // transparentNavigationBar
+            // hideNavigationBar
+            // statusbarColor={'#dddddd'}
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+          <IPadMockup
+            isLandscape={true}
+            screenWidth={370}
+            screenType="modern"
+            // hideStatusBar
+            // hideNavigationBar
+            // transparentNavigationBar
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+        </>
+      )}
     </SafeAreaView>
   );
 }
@@ -268,11 +373,12 @@ const ColorButton = ({
       backgroundColor: isActive ? 'dodgerblue' : 'lightgray',
       borderRadius: 8,
       padding: 8,
+      marginLeft: 4,
     };
   }, [isActive]);
 
   const titleStyle = useMemo<TextStyle>(() => {
-    return {color: 'white'};
+    return {color: 'white', fontSize: 12};
   }, []);
 
   return (
@@ -313,12 +419,13 @@ const ScreenDemo = React.memo(_ScreenDemo);
 const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 10,
+    marginHorizontal: 10,
   },
   screenContainer: {
     flex: 1,
     backgroundColor: '#dddddd',
-    // backgroundColor: 'green',
     paddingHorizontal: 8,
   },
   appRow: {
