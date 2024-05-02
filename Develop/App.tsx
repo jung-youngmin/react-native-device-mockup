@@ -42,6 +42,7 @@ function App(): React.JSX.Element {
   const [showIpadLegacy, setShowIpadLegacy] = useState(false);
   const [showIpadModern, setShowIpadModern] = useState(false);
 
+  // #region onPress
   const onPressAndPhone = useCallback(() => {
     setShowAndroidTab(false);
     setShowIphoneLegacy(false);
@@ -123,11 +124,12 @@ function App(): React.JSX.Element {
 
     setShowIpadModern(prev => !prev);
   }, []);
+  // #endregion
 
   const mockupContainerStyle = useMemo<ViewStyle>(() => {
     return {
       borderWidth: 1,
-      marginLeft: 10,
+      padding: 5,
       marginTop: 10,
       // alignItems: 'flex-end',
     };
@@ -135,6 +137,10 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
       <View style={styles.buttons}>
         <Text>Phone</Text>
         <ColorButton
@@ -176,31 +182,35 @@ function App(): React.JSX.Element {
           onPress={onPressIpadModern}
         />
       </View>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
       {showAndroidPhone && (
         <>
           <AndroidMockup
-            screenWidth={200}
-            isLandscape={false}
-            navigationBar="rhb"
+            screenWidth={190}
+            // noRoundedScreen
+            // isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="dodgerblue"
+            // statusbarColor="tomato"
+            // navigationBar="bhr"
             // hideStatusBar
             // transparentNavigationBar
             // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
+          >
             <ScreenDemo />
           </AndroidMockup>
           <AndroidMockup
+            screenWidth={380}
+            // noRoundedScreen
             isLandscape={true}
-            screenWidth={350}
+            containerStlye={mockupContainerStyle}
+            // frameColor="dodgerblue"
+            // statusbarColor="tomato"
+            // navigationBar="bhr"
             // hideStatusBar
-            // hideNavigationBar
+            // transparentCamArea
             // transparentNavigationBar
-            navigationBar="bhr"
-            containerStlye={mockupContainerStyle}>
+            // hideNavigationBar
+          >
             <ScreenDemo />
           </AndroidMockup>
         </>
@@ -390,14 +400,14 @@ const ColorButton = ({
   );
 };
 
-const _ScreenDemo = () => {
+const _ScreenDemo = ({style}: {style?: ViewStyle}) => {
   return (
     <TouchableHighlight
       // eslint-disable-next-line react-native/no-inline-styles
       style={{flex: 1}}
       underlayColor={'red'}
       onPress={() => {}}>
-      <View style={styles.screenContainer}>
+      <View style={[styles.screenContainer, style]}>
         <View style={styles.appRow}>
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
@@ -408,7 +418,7 @@ const _ScreenDemo = () => {
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
-          <View style={styles.appIcon} />
+          <View style={[styles.appIcon, {backgroundColor: 'transparent'}]} />
         </View>
       </View>
     </TouchableHighlight>
@@ -420,18 +430,19 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginVertical: 5,
     marginHorizontal: 10,
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: '#dddddd',
+    backgroundColor: 'wheat',
     paddingHorizontal: 8,
+    // paddingTop: 10,
   },
   appRow: {
     marginTop: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   appIcon: {
     width: 36,
