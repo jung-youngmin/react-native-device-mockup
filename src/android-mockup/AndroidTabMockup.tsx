@@ -5,7 +5,8 @@ import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
 
 interface IAndroidTabMockupProps {
 	readonly screenWidth: number;
-	readonly screenRounded?: boolean;
+	/** default: false */
+	readonly noRoundedScreen?: boolean;
 	/** default: false */
 	readonly isLandscape?: boolean;
 	/** default: true */
@@ -30,9 +31,9 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 		return props.isLandscape === undefined ? false : props.isLandscape;
 	}, [props.isLandscape]);
 
-	const screenRounded = useMemo(() => {
-		return props.screenRounded === undefined ? true : props.screenRounded;
-	}, [props.screenRounded]);
+	const noRoundedScreen = useMemo(() => {
+		return props.noRoundedScreen === undefined ? true : props.noRoundedScreen;
+	}, [props.noRoundedScreen]);
 
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
@@ -65,7 +66,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 			{isLandscape ? (
 				<AndroidTabLandscape
 					screenWidth={props.screenWidth}
-					screenRounded={screenRounded}
+					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
@@ -77,7 +78,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 			) : (
 				<AndroidTabPortrait
 					screenWidth={props.screenWidth}
-					screenRounded={screenRounded}
+					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
