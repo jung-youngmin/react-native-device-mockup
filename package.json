@@ -15,7 +15,9 @@
 		"prepare:default": "rm -rf dist && tsc",
 		"android": "cd Develop && npm run android",
 		"avd-list": "emulator -list-avds",
-		"start-emulator": "emulator -avd Medium_Phone_API_34"
+		"start-emulator": "emulator -avd Medium_Phone_API_34",
+		"ios": "cd Develop && npm run ios",
+		"pod": "cd Develop/ios && pod install && cd ../.."
 	},
 	"peerDependencies": {
 		"react": "*",
