@@ -9,13 +9,20 @@ export default function AndroidTabPortrait(props: PropsWithChildren<IAndroidMock
 		frameColor,
 		statusbarColor,
 		navigationBar,
+		navigationBarcolor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(
+			screenWidth,
+			screenRounded,
+			frameColor,
+			statusbarColor,
+			navigationBarcolor,
+		);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
 
 	return (
 		<View style={styles.container}>
@@ -95,6 +102,7 @@ const getStyles = (
 	screenRounded: boolean,
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
+	navigationBarcolor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 1600);
@@ -143,7 +151,7 @@ const getStyles = (
 		navigationSwipe: {
 			width: "100%",
 			height: getSizeWithRatio(60),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			alignItems: "center",
 			justifyContent: "center",
 		},
@@ -164,7 +172,7 @@ const getStyles = (
 		navigationPortraitBHR: {
 			width: "100%",
 			height: getSizeWithRatio(80),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			paddingLeft: screenWidth / 2,
 			flexDirection: "row",
 			alignItems: "center",

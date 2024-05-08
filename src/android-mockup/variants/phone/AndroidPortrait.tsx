@@ -9,13 +9,20 @@ export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupV
 		frameColor,
 		statusbarColor,
 		navigationBar,
+		navigationBarcolor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(
+			screenWidth,
+			screenRounded,
+			frameColor,
+			statusbarColor,
+			navigationBarcolor,
+		);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
 
 	return (
 		<View style={styles.container}>
@@ -100,6 +107,7 @@ const getStyles = (
 	screenRounded: boolean,
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
+	navigationBarcolor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 1080);
@@ -148,7 +156,7 @@ const getStyles = (
 		navigationPortraitSwipe: {
 			width: "100%",
 			height: getSizeWithRatio(60),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			alignItems: "center",
 			justifyContent: "center",
 		},
@@ -161,7 +169,7 @@ const getStyles = (
 		navigationPortraitBHR: {
 			width: "100%",
 			height: getSizeWithRatio(120),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			paddingHorizontal: getSizeWithRatio(260),
 			flexDirection: "row",
 			alignItems: "center",

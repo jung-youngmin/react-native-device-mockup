@@ -14,16 +14,18 @@ interface IAndroidMockupProps {
 	readonly frameColor?: ColorValue;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
-	/** default: "swipe" */
-	readonly navigationBar?: "swipe" | "bhr" | "rhb";
 	/** default: false */
 	readonly hideStatusBar?: boolean;
-	/** default: false. Landscape only */
-	readonly transparentCamArea?: boolean;
+	/** default: "swipe" */
+	readonly navigationBar?: "swipe" | "bhr" | "rhb";
+	/** default: "#CCCCCC" */
+	readonly navigationBarcolor?: ColorValue;
 	/** default: false */
 	readonly transparentNavigationBar?: boolean;
 	/** default: false */
 	readonly hideNavigationBar?: boolean;
+	/** default: false. Landscape only */
+	readonly transparentCamArea?: boolean;
 }
 
 export type AndroidMockupProps = PropsWithChildren<IAndroidMockupProps>;
@@ -47,6 +49,10 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 	const navigationBar = useMemo(() => {
 		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
 	}, [props.navigationBar]);
+
+	const navigationBarcolor = useMemo(() => {
+		return props.navigationBarcolor === undefined ? "#CCCCCC" : props.navigationBarcolor;
+	}, [props.navigationBarcolor]);
 
 	const hideStatusBar = useMemo(() => {
 		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
@@ -75,6 +81,7 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
+					navigationBarcolor={navigationBarcolor}
 					hideStatusBar={hideStatusBar}
 					transparentCamArea={transparentCamArea}
 					transparentNavigationBar={transparentNavigationBar}
@@ -88,6 +95,7 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
+					navigationBarcolor={navigationBarcolor}
 					hideStatusBar={hideStatusBar}
 					transparentNavigationBar={transparentNavigationBar}
 					hideNavigationBar={hideNavigationBar}>

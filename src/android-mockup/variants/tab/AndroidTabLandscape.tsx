@@ -8,13 +8,20 @@ export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMoc
 		frameColor,
 		statusbarColor,
 		navigationBar,
+		navigationBarcolor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(
+			props.screenWidth,
+			screenRounded,
+			frameColor,
+			statusbarColor,
+			navigationBarcolor,
+		);
+	}, [props.screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
 
 	return (
 		<View style={styles.container}>
@@ -93,6 +100,7 @@ const getStyles = (
 	screenRounded: boolean,
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
+	navigationBarcolor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 2560);
@@ -141,7 +149,7 @@ const getStyles = (
 		navigationSwipe: {
 			width: "100%",
 			height: getSizeWithRatio(60),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			alignItems: "center",
 			justifyContent: "center",
 		},
@@ -162,7 +170,7 @@ const getStyles = (
 		navigationLandscapeBHR: {
 			width: "100%",
 			height: getSizeWithRatio(80),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			paddingLeft: (screenWidth / 3) * 2,
 			flexDirection: "row",
 			alignItems: "center",

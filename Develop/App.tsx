@@ -18,8 +18,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   AndroidMockup,
   AndroidTabMockup,
@@ -30,8 +28,8 @@ import {
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const backgroundStyle: ViewStyle = {
+    backgroundColor: 'white',
   };
 
   const [showAndroidPhone, setShowAndroidPhone] = useState(false);
@@ -128,7 +126,7 @@ function App(): React.JSX.Element {
 
   const mockupContainerStyle = useMemo<ViewStyle>(() => {
     return {
-      borderWidth: 1,
+      // borderWidth: 1,
       padding: 5,
       marginTop: 10,
       // alignItems: 'flex-end',
@@ -189,10 +187,11 @@ function App(): React.JSX.Element {
             // noRoundedScreen
             // isLandscape={false}
             containerStlye={mockupContainerStyle}
-            // frameColor="dodgerblue"
-            // statusbarColor="tomato"
-            // navigationBar="bhr"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
+            // navigationBar="bhr"
+            // navigationBarcolor="blue"
             // transparentNavigationBar
             // hideNavigationBar
           >
@@ -203,13 +202,14 @@ function App(): React.JSX.Element {
             // noRoundedScreen
             isLandscape={true}
             containerStlye={mockupContainerStyle}
-            // frameColor="dodgerblue"
-            // statusbarColor="tomato"
-            // navigationBar="bhr"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentCamArea
+            // navigationBar="bhr"
+            // navigationBarcolor="blue"
             // transparentNavigationBar
             // hideNavigationBar
+            // transparentCamArea
           >
             <ScreenDemo />
           </AndroidMockup>
@@ -219,23 +219,32 @@ function App(): React.JSX.Element {
         <>
           <AndroidTabMockup
             screenWidth={200}
-            isLandscape={false}
-            navigationBar="rhb"
+            // isLandscape={false}
+            // noRoundedScreen
+            containerStlye={mockupContainerStyle}
+            frameColor="green"
+            statusbarColor="red"
             // hideStatusBar
+            navigationBar="rhb"
+            navigationBarcolor="blue"
             // transparentNavigationBar
             // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
+          >
             <ScreenDemo />
           </AndroidTabMockup>
           <AndroidTabMockup
-            isLandscape={true}
             screenWidth={350}
+            isLandscape={true}
+            // noRoundedScreen
+            containerStlye={mockupContainerStyle}
+            frameColor="green"
+            statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
+            navigationBar="rhb"
+            navigationBarcolor="blue"
             // transparentNavigationBar
-            navigationBar="bhr"
-            containerStlye={mockupContainerStyle}>
+            // hideNavigationBar
+          >
             <ScreenDemo />
           </AndroidTabMockup>
         </>

@@ -10,14 +10,21 @@ export default function AndroidLandscape(
 		frameColor,
 		statusbarColor,
 		navigationBar,
+		navigationBarcolor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 		transparentCamArea,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor]);
+		return getStyles(
+			props.screenWidth,
+			screenRounded,
+			frameColor,
+			statusbarColor,
+			navigationBarcolor,
+		);
+	}, [props.screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
 
 	return (
 		<View style={styles.container}>
@@ -110,6 +117,7 @@ const getStyles = (
 	screenRounded: boolean,
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
+	navigationBarcolor: ColorValue,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 2340);
@@ -164,7 +172,7 @@ const getStyles = (
 		navigationLandscapeSwipe: {
 			width: "100%",
 			height: getSizeWithRatio(50),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			alignItems: "center",
 			justifyContent: "center",
 		},
@@ -186,7 +194,7 @@ const getStyles = (
 			width: getSizeWithRatio(120),
 			height: "100%",
 			paddingVertical: getSizeWithRatio(260),
-			backgroundColor: statusbarColor,
+			backgroundColor: navigationBarcolor,
 			alignItems: "center",
 			justifyContent: "space-between",
 		},

@@ -8,6 +8,8 @@ export interface IAndroidMockupVariantProps {
 	readonly frameColor: ColorValue;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor: ColorValue;
+	/** default: "#CCCCCC" */
+	readonly navigationBarcolor: ColorValue;
 	/** default: "swipe" */
 	readonly navigationBar: "swipe" | "bhr" | "rhb";
 	/** default: false */

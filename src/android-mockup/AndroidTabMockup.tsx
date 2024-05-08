@@ -6,19 +6,21 @@ import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
 interface IAndroidTabMockupProps {
 	readonly screenWidth: number;
 	/** default: false */
-	readonly noRoundedScreen?: boolean;
-	/** default: false */
 	readonly isLandscape?: boolean;
+	/** default: false */
+	readonly noRoundedScreen?: boolean;
 	/** default: true */
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
-	/** default: "swipe" */
-	readonly navigationBar?: "swipe" | "bhr" | "rhb";
 	/** default: false */
 	readonly hideStatusBar?: boolean;
+	/** default: "swipe" */
+	readonly navigationBar?: "swipe" | "bhr" | "rhb";
+	/** default: "#CCCCCC" */
+	readonly navigationBarcolor?: ColorValue;
 	/** default: false */
 	readonly transparentNavigationBar?: boolean;
 	/** default: false */
@@ -32,7 +34,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 	}, [props.isLandscape]);
 
 	const noRoundedScreen = useMemo(() => {
-		return props.noRoundedScreen === undefined ? true : props.noRoundedScreen;
+		return props.noRoundedScreen === undefined ? false : props.noRoundedScreen;
 	}, [props.noRoundedScreen]);
 
 	const frameColor = useMemo(() => {
@@ -46,6 +48,10 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 	const navigationBar = useMemo(() => {
 		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
 	}, [props.navigationBar]);
+
+	const navigationBarcolor = useMemo(() => {
+		return props.navigationBarcolor === undefined ? "#CCCCCC" : props.navigationBarcolor;
+	}, [props.navigationBarcolor]);
 
 	const hideStatusBar = useMemo(() => {
 		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
@@ -70,6 +76,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
+					navigationBarcolor={navigationBarcolor}
 					hideStatusBar={hideStatusBar}
 					transparentNavigationBar={transparentNavigationBar}
 					hideNavigationBar={hideNavigationBar}>
@@ -82,6 +89,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
+					navigationBarcolor={navigationBarcolor}
 					hideStatusBar={hideStatusBar}
 					transparentNavigationBar={transparentNavigationBar}
 					hideNavigationBar={hideNavigationBar}>
