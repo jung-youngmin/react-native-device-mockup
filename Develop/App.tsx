@@ -20,7 +20,12 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AndroidMockup, AndroidTabMockup, IPhoneMockup} from './dist';
+import {
+  AndroidMockup,
+  AndroidTabMockup,
+  IPadMockup,
+  IPhoneMockup,
+} from './dist';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,12 +39,17 @@ function App(): React.JSX.Element {
   const [showIphoneLegacy, setShowIphoneLegacy] = useState(false);
   const [showIphoneNotch, setShowIphoneNotch] = useState(false);
   const [showIphoneIsland, setShowIphoneIsland] = useState(false);
+  const [showIpadLegacy, setShowIpadLegacy] = useState(false);
+  const [showIpadModern, setShowIpadModern] = useState(false);
 
+  // #region onPress
   const onPressAndPhone = useCallback(() => {
     setShowAndroidTab(false);
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowAndroidPhone(prev => !prev);
   }, []);
@@ -50,6 +60,8 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowAndroidTab(prev => !prev);
   }, []);
@@ -60,6 +72,8 @@ function App(): React.JSX.Element {
 
     setShowIphoneNotch(false);
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowIphoneLegacy(prev => !prev);
   }, []);
@@ -70,6 +84,8 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
 
     setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
 
     setShowIphoneNotch(prev => !prev);
   }, []);
@@ -80,13 +96,40 @@ function App(): React.JSX.Element {
     setShowIphoneLegacy(false);
     setShowIphoneNotch(false);
 
+    setShowIpadLegacy(false);
+    setShowIpadModern(false);
+
     setShowIphoneIsland(prev => !prev);
   }, []);
+
+  const onPressIpadLegacy = useCallback(() => {
+    setShowAndroidPhone(false);
+    setShowAndroidTab(false);
+    setShowIphoneLegacy(false);
+    setShowIphoneNotch(false);
+    setShowIphoneIsland(false);
+
+    setShowIpadModern(false);
+
+    setShowIpadLegacy(prev => !prev);
+  }, []);
+
+  const onPressIpadModern = useCallback(() => {
+    setShowAndroidPhone(false);
+    setShowAndroidTab(false);
+    setShowIphoneLegacy(false);
+    setShowIphoneNotch(false);
+    setShowIphoneIsland(false);
+    setShowIpadLegacy(false);
+
+    setShowIpadModern(prev => !prev);
+  }, []);
+  // #endregion
 
   const mockupContainerStyle = useMemo<ViewStyle>(() => {
     return {
       borderWidth: 1,
-      marginLeft: 10,
+      padding: 5,
       marginTop: 10,
       // alignItems: 'flex-end',
     };
@@ -94,58 +137,80 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <View style={styles.buttons}>
-        <ColorButton
-          title="A-Phone"
-          isActive={showAndroidPhone}
-          onPress={onPressAndPhone}
-        />
-        <ColorButton
-          title="A-Tab"
-          isActive={showAndroidTab}
-          onPress={onPressAndTab}
-        />
-        <ColorButton
-          title="i-legacy"
-          isActive={showIphoneLegacy}
-          onPress={onPressIphoneLegacy}
-        />
-        <ColorButton
-          title="i-notch"
-          isActive={showIphoneNotch}
-          onPress={onPressIphoneNotch}
-        />
-        <ColorButton
-          title="i-island"
-          isActive={showIphoneIsland}
-          onPress={onPressIphoneIsland}
-        />
-      </View>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <View style={styles.buttons}>
+        <Text>Phone</Text>
+        <ColorButton
+          title="Android"
+          isActive={showAndroidPhone}
+          onPress={onPressAndPhone}
+        />
+        <ColorButton
+          title="iPhone-legacy"
+          isActive={showIphoneLegacy}
+          onPress={onPressIphoneLegacy}
+        />
+        <ColorButton
+          title="iPhone-notch"
+          isActive={showIphoneNotch}
+          onPress={onPressIphoneNotch}
+        />
+        <ColorButton
+          title="iPhone-island"
+          isActive={showIphoneIsland}
+          onPress={onPressIphoneIsland}
+        />
+      </View>
+      <View style={styles.buttons}>
+        <Text>Tablet</Text>
+        <ColorButton
+          title="Android"
+          isActive={showAndroidTab}
+          onPress={onPressAndTab}
+        />
+        <ColorButton
+          title="iPad-legacy"
+          isActive={showIpadLegacy}
+          onPress={onPressIpadLegacy}
+        />
+        <ColorButton
+          title="iPad-modern"
+          isActive={showIpadModern}
+          onPress={onPressIpadModern}
+        />
+      </View>
       {showAndroidPhone && (
         <>
           <AndroidMockup
-            screenWidth={200}
-            isLandscape={false}
-            navigationBar="rhb"
+            screenWidth={190}
+            // noRoundedScreen
+            // isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="dodgerblue"
+            // statusbarColor="tomato"
+            // navigationBar="bhr"
             // hideStatusBar
             // transparentNavigationBar
             // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
+          >
             <ScreenDemo />
           </AndroidMockup>
           <AndroidMockup
+            screenWidth={380}
+            // noRoundedScreen
             isLandscape={true}
-            screenWidth={350}
+            containerStlye={mockupContainerStyle}
+            // frameColor="dodgerblue"
+            // statusbarColor="tomato"
+            // navigationBar="bhr"
             // hideStatusBar
-            // hideNavigationBar
+            // transparentCamArea
             // transparentNavigationBar
-            navigationBar="bhr"
-            containerStlye={mockupContainerStyle}>
+            // hideNavigationBar
+          >
             <ScreenDemo />
           </AndroidMockup>
         </>
@@ -250,6 +315,56 @@ function App(): React.JSX.Element {
           </IPhoneMockup>
         </>
       )}
+      {showIpadLegacy && (
+        <>
+          <IPadMockup
+            screenWidth={240}
+            screenType="legacy"
+            isLandscape={false}
+            // hideStatusBar
+            // transparentNavigationBar
+            // hideNavigationBar
+            // statusbarColor={'#dddddd'}
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+          <IPadMockup
+            isLandscape={true}
+            screenWidth={300}
+            screenType="legacy"
+            // hideStatusBar
+            // hideNavigationBar
+            // transparentNavigationBar
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+        </>
+      )}
+      {showIpadModern && (
+        <>
+          <IPadMockup
+            screenWidth={300}
+            screenType="modern"
+            isLandscape={false}
+            // hideStatusBar
+            // transparentNavigationBar
+            // hideNavigationBar
+            // statusbarColor={'#dddddd'}
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+          <IPadMockup
+            isLandscape={true}
+            screenWidth={370}
+            screenType="modern"
+            // hideStatusBar
+            // hideNavigationBar
+            // transparentNavigationBar
+            containerStlye={mockupContainerStyle}>
+            <ScreenDemo />
+          </IPadMockup>
+        </>
+      )}
     </SafeAreaView>
   );
 }
@@ -268,11 +383,12 @@ const ColorButton = ({
       backgroundColor: isActive ? 'dodgerblue' : 'lightgray',
       borderRadius: 8,
       padding: 8,
+      marginLeft: 4,
     };
   }, [isActive]);
 
   const titleStyle = useMemo<TextStyle>(() => {
-    return {color: 'white'};
+    return {color: 'white', fontSize: 12};
   }, []);
 
   return (
@@ -284,14 +400,14 @@ const ColorButton = ({
   );
 };
 
-const _ScreenDemo = () => {
+const _ScreenDemo = ({style}: {style?: ViewStyle}) => {
   return (
     <TouchableHighlight
       // eslint-disable-next-line react-native/no-inline-styles
       style={{flex: 1}}
       underlayColor={'red'}
       onPress={() => {}}>
-      <View style={styles.screenContainer}>
+      <View style={[styles.screenContainer, style]}>
         <View style={styles.appRow}>
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
@@ -302,7 +418,7 @@ const _ScreenDemo = () => {
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
-          <View style={styles.appIcon} />
+          <View style={[styles.appIcon, {backgroundColor: 'transparent'}]} />
         </View>
       </View>
     </TouchableHighlight>
@@ -313,18 +429,20 @@ const ScreenDemo = React.memo(_ScreenDemo);
 const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: '#dddddd',
-    // backgroundColor: 'green',
+    backgroundColor: 'wheat',
     paddingHorizontal: 8,
+    // paddingTop: 10,
   },
   appRow: {
     marginTop: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   appIcon: {
     width: 36,

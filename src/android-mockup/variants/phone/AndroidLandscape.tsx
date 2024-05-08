@@ -2,7 +2,9 @@ import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleSheet, View } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
-export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockupVariantProps>) {
+export default function AndroidLandscape(
+	props: PropsWithChildren<IAndroidMockupVariantProps & { readonly transparentCamArea: boolean }>,
+) {
 	const {
 		screenRounded,
 		frameColor,
@@ -11,6 +13,7 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
+		transparentCamArea,
 	} = props;
 	const styles = useMemo(() => {
 		return getStyles(props.screenWidth, screenRounded, frameColor, statusbarColor);
@@ -23,7 +26,7 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* status bar*/}
-					{hideStatusBar === false && (
+					{transparentCamArea === false && (
 						<View style={styles.statusbarLandscape}>
 							{/* camera */}
 							<View style={styles.cameraLandscape} />
@@ -44,7 +47,7 @@ export default function AndroidLandscape(props: PropsWithChildren<IAndroidMockup
 					</View>
 
 					{/* camera - fullScreen */}
-					{hideStatusBar && <View style={styles.cameraFullScreenLandscape} />}
+					{transparentCamArea && <View style={styles.cameraFullScreenLandscape} />}
 
 					{/* navigation bar - fullScreen - swipe */}
 					{hideNavigationBar === false &&
@@ -144,7 +147,7 @@ const getStyles = (
 		screen: {
 			width: screenWidth,
 			height: mHeight,
-			backgroundColor: statusbarColor,
+			backgroundColor: "whitesmoke",
 			flexDirection: "row",
 		},
 		statusbarLandscape: {

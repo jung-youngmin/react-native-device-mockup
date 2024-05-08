@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleSheet, View } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
-export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupVariantProps>) {
+export default function IPadModernPortrait(props: PropsWithChildren<IIosMockupVariantProps>) {
 	const {
 		frameColor,
 		statusbarColor,
@@ -20,11 +20,7 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 			<View style={styles.frame}>
 				{/* screen */}
 				<View style={styles.screen}>
-					{hideStatusBar === false && (
-						<View style={styles.notchContainer}>
-							<View style={styles.notch}></View>
-						</View>
-					)}
+					{hideStatusBar === false && <View style={styles.notchContainer} />}
 					{/* screen content */}
 					<View style={{ flex: 1 }}>{props.children}</View>
 					{hideNavigationBar === false && transparentNavigationBar === false && (
@@ -34,9 +30,7 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 					)}
 				</View>
 				{hideStatusBar && (
-					<View pointerEvents="none" style={styles.notchContainerFullScreen}>
-						<View style={styles.notch}></View>
-					</View>
+					<View pointerEvents="none" style={styles.notchContainerFullScreen} />
 				)}
 				{hideNavigationBar === false && transparentNavigationBar && (
 					<View pointerEvents="none" style={styles.swipeContainerFullScreen}>
@@ -44,31 +38,29 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 					</View>
 				)}
 			</View>
-			<View style={styles.notchPad} />
-			<View style={styles.silenceSwitch} />
 			<View style={styles.volumeUp} />
 			<View style={styles.volumeDown} />
-			<View style={styles.powerPortrait} />
+			<View style={styles.power} />
 		</View>
 	);
 }
 
 const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
 	const getSizeWithRatio = (size: number) => {
-		const sizeRatio = Math.floor((screenWidth * size) / 390);
+		const sizeRatio = Math.floor((screenWidth * size) / 834);
 		return Math.max(sizeRatio, 1);
 	};
 
-	const FRAME_WIDTH = getSizeWithRatio(14);
+	const FRAME_WIDTH = getSizeWithRatio(35);
 	const HALF_FRAME_WIDTH = Math.floor(FRAME_WIDTH / 2);
 
-	const mHeight = Math.floor((screenWidth / 9) * 19.5);
+	const mHeight = Math.floor((screenWidth / 3) * 4);
 	const widthAndFrame = screenWidth + FRAME_WIDTH * 2;
 	const heightAndFrame = mHeight + FRAME_WIDTH * 2;
 
-	const bezelRadius = getSizeWithRatio(64);
+	const bezelRadius = getSizeWithRatio(50);
 
-	const frameButtonWidth = Math.floor(FRAME_WIDTH * 0.9);
+	const frameButtonWidth = Math.floor(FRAME_WIDTH * 0.65);
 	const frameButtonPosition = screenWidth + FRAME_WIDTH + HALF_FRAME_WIDTH;
 
 	return StyleSheet.create({
@@ -77,7 +69,8 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			height: heightAndFrame,
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
-			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
+			marginTop: frameButtonWidth - HALF_FRAME_WIDTH,
+			marginRight: frameButtonWidth - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			width: widthAndFrame,
@@ -95,86 +88,62 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 		notchContainerFullScreen: {
 			position: "absolute",
 			width: "100%",
-			height: getSizeWithRatio(44),
+			height: getSizeWithRatio(24),
 			alignItems: "center",
 		},
 		notchContainer: {
 			width: "100%",
-			height: getSizeWithRatio(44),
+			height: getSizeWithRatio(24),
 			backgroundColor: statusbarColor,
 			alignItems: "center",
-		},
-		notch: {
-			width: getSizeWithRatio(160),
-			height: getSizeWithRatio(31),
-			backgroundColor: frameColor,
-			borderBottomLeftRadius: getSizeWithRatio(20),
-			borderBottomRightRadius: getSizeWithRatio(20),
 		},
 		swipeContainerFullScreen: {
 			position: "absolute",
 			bottom: 0,
 			width: "100%",
-			height: getSizeWithRatio(34),
+			height: getSizeWithRatio(20),
 			alignItems: "center",
-			justifyContent: "flex-end",
+			justifyContent: "center",
 		},
 		swipeContainer: {
 			width: "100%",
-			height: getSizeWithRatio(34),
+			height: getSizeWithRatio(20),
 			backgroundColor: statusbarColor,
+			paddingTop: getSizeWithRatio(4),
 			alignItems: "center",
-			justifyContent: "flex-end",
+			justifyContent: "center",
 		},
 		swipeBar: {
 			backgroundColor: frameColor,
 			borderRadius: getSizeWithRatio(100),
-			width: "35%",
-			height: getSizeWithRatio(7),
-			marginBottom: getSizeWithRatio(10),
-		},
-		silenceSwitch: {
-			position: "absolute",
-			borderRadius: FRAME_WIDTH,
-			top: getSizeWithRatio(165),
-			right: frameButtonPosition,
-			width: frameButtonWidth,
-			height: getSizeWithRatio(34),
-			backgroundColor: frameColor,
+			width: "30%",
+			height: getSizeWithRatio(8),
 		},
 		volumeUp: {
 			position: "absolute",
 			borderRadius: FRAME_WIDTH,
-			top: getSizeWithRatio(230),
-			right: frameButtonPosition,
+			top: getSizeWithRatio(75),
+			left: frameButtonPosition,
 			width: frameButtonWidth,
-			height: getSizeWithRatio(65),
+			height: getSizeWithRatio(50),
 			backgroundColor: frameColor,
 		},
 		volumeDown: {
 			position: "absolute",
 			borderRadius: FRAME_WIDTH,
-			top: getSizeWithRatio(315),
-			right: frameButtonPosition,
-			width: frameButtonWidth,
-			height: getSizeWithRatio(65),
-			backgroundColor: frameColor,
-		},
-		powerPortrait: {
-			position: "absolute",
-			borderRadius: FRAME_WIDTH,
-			top: getSizeWithRatio(250),
+			top: getSizeWithRatio(130),
 			left: frameButtonPosition,
 			width: frameButtonWidth,
-			height: getSizeWithRatio(105),
+			height: getSizeWithRatio(50),
 			backgroundColor: frameColor,
 		},
-		notchPad: {
-			alignSelf: "center",
+		power: {
 			position: "absolute",
-			top: HALF_FRAME_WIDTH,
-			width: getSizeWithRatio(160),
-			height: getSizeWithRatio(20),
+			borderRadius: FRAME_WIDTH,
+			bottom: mHeight + FRAME_WIDTH + HALF_FRAME_WIDTH,
+			left: screenWidth - FRAME_WIDTH - HALF_FRAME_WIDTH,
+			width: getSizeWithRatio(60),
+			height: frameButtonWidth,
 			backgroundColor: frameColor,
 		},
 	});

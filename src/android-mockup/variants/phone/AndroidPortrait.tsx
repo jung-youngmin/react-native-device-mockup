@@ -137,7 +137,7 @@ const getStyles = (
 		screen: {
 			width: screenWidth,
 			height: mHeight,
-			backgroundColor: statusbarColor,
+			backgroundColor: "whitesmoke",
 		},
 		statusbarPortrait: {
 			width: "100%",

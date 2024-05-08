@@ -5,8 +5,8 @@ import AndroidLandscape from "./variants/phone/AndroidLandscape";
 
 interface IAndroidMockupProps {
 	readonly screenWidth: number;
-	/** default: true */
-	readonly screenRounded?: boolean;
+	/** default: false */
+	readonly noRoundedScreen?: boolean;
 	/** default: false */
 	readonly isLandscape?: boolean;
 	readonly containerStlye?: StyleProp<ViewStyle>;
@@ -18,6 +18,8 @@ interface IAndroidMockupProps {
 	readonly navigationBar?: "swipe" | "bhr" | "rhb";
 	/** default: false */
 	readonly hideStatusBar?: boolean;
+	/** default: false. Landscape only */
+	readonly transparentCamArea?: boolean;
 	/** default: false */
 	readonly transparentNavigationBar?: boolean;
 	/** default: false */
@@ -26,9 +28,9 @@ interface IAndroidMockupProps {
 
 export type AndroidMockupProps = PropsWithChildren<IAndroidMockupProps>;
 export default function AndroidMockup(props: AndroidMockupProps) {
-	const screenRounded = useMemo(() => {
-		return props.screenRounded === undefined ? true : props.screenRounded;
-	}, [props.screenRounded]);
+	const noRoundedScreen = useMemo(() => {
+		return props.noRoundedScreen === undefined ? false : props.noRoundedScreen;
+	}, [props.noRoundedScreen]);
 
 	const isLandscape = useMemo(() => {
 		return props.isLandscape === undefined ? false : props.isLandscape;
@@ -50,6 +52,10 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
 	}, [props.hideStatusBar]);
 
+	const transparentCamArea = useMemo(() => {
+		return props.transparentCamArea === undefined ? false : props.transparentCamArea;
+	}, [props.transparentCamArea]);
+
 	const transparentNavigationBar = useMemo(() => {
 		return props.transparentNavigationBar === undefined
 			? false
@@ -65,11 +71,12 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 			{isLandscape ? (
 				<AndroidLandscape
 					screenWidth={props.screenWidth}
-					screenRounded={screenRounded}
+					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
 					hideStatusBar={hideStatusBar}
+					transparentCamArea={transparentCamArea}
 					transparentNavigationBar={transparentNavigationBar}
 					hideNavigationBar={hideNavigationBar}>
 					{props.children}
@@ -77,7 +84,7 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 			) : (
 				<AndroidPortrait
 					screenWidth={props.screenWidth}
-					screenRounded={screenRounded}
+					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
