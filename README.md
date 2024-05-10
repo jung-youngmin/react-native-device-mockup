@@ -34,13 +34,25 @@ Every mockup is rendered as a pure react-native `View` component.
 
 ## Installation
 
+No dependencies. Just install it
+
+``` bash
+npm install react-native-device-mockup
+```
+
+or if you use yarn
+
+``` bash
+yarn add react-native-device-mockup
+```
+
 ## How to use
 
 ## Props
 
-### AndroidMockup
+### AndroidMockup & AndroidTabMockup
 
-You can check [demo](#androidmockup---phone)
+You can check [demo](#android)
 
 | prop  | Required | Type | Default | Description |
 | ----- | :------: |----- | ------- | ----------- |
@@ -55,7 +67,8 @@ You can check [demo](#androidmockup---phone)
 | navBarcolor | X | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
 | transparentNavBar | X | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavbar) |
 | hideNavBar | X | `boolean` | `false` | Hide the navigation bar<br>[details](#hidenavbar) |
-| transparentCamArea | X | `boolean` | `false` | Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
+| transparentCamArea | X | `boolean` | `false` | *NOTE: AndroidMockup only.*<br>Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
+| children | X | `ReactNode` |  | Components to be rendered on the mockup screen |
 
 #### screenWidth
 
@@ -110,6 +123,7 @@ Hide the navigation bar.
 
 #### transparentCamArea
 
+*AndroidMockup only.*  
 Make the area around the camera transparent.  
 It only works when `isLandscape=true`.  
 It is ignored when `isLandscape=false`
@@ -121,27 +135,70 @@ It is ignored when `isLandscape=false`
 
 ## Demo
 
-### AndroidMockup - Phone
+### Android
 
-| default | noRoundedScreen | colors |
-| :--: | :--: | :--: |
-|![and_default](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/7551489e-54f6-4832-814c-bdd35ae012b5)| ![and_noRoundedScreen](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/9ded37e1-edff-43df-a10a-864e7dd4437c) | ![and_colors](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/32de0f9d-f687-4d6d-8ab2-40f08b54fbfa) |
-||| frameColor="green"<br>statusbarColor="red"<br>navBarcolor="blue" |
+- `AndroidMockup`
+- `AndroidTabMockup`
 
-| default with child | hideStatusBar |
+#### `AndroidMockup` default mockups
+
+| isLandscape=false | isLandscape=true |
 | :--: | :--: |
-| ![and_default_child](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/1ffaf363-c1f4-4818-a86d-145030c86ef5) | ![hidestatusbar (사용자 지정)](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/96c368c4-838a-4c01-ba48-55279ddfdc44) |
-| ![and_land_default_child](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3ebc05a9-59ce-4a30-98fe-e32f8b8c8eb5) | ![hidestatusbar_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/bb9f836e-223e-4796-997e-aa71b2e2968d) |
+|![and_default](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/7551489e-54f6-4832-814c-bdd35ae012b5) | ![and_default_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/49c5fa90-e2cb-4b14-a860-9ea0349a52ab) |
 
-| transparentNavBar<br>navBar="bhr" | hideNavBar |
+#### `AndroidTabMockup` default mockups
+
+| isLandscape=false | isLandscape=true |
 | :--: | :--: |
-| ![trans_navi](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/0dd9a206-4e72-413a-8249-eb359d66eba3) | ![hide_navi](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/8a8330d1-ca94-494e-b55d-af797dcdcfbe) |
-| ![trans_navi_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/70485119-4b85-4517-9290-1242023ba19b) | ![hide_navi_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/13612fe4-d8d2-4589-a6a0-3643ecd37a76) |
+| ![and_tab](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3a9f8191-0b5d-4a9e-907f-1b5d5eb60274) | ![and_tab_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/7f5a4f97-2736-4578-a993-d61567c674f6) |
 
-| transparentCamArea |
-| :--: |
-| ![transparentCamArea](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3ed9eba5-758e-46b2-828d-5381015789d0) |
-| landscape only |
+#### hideStatusBar & hideNavBar
+
+``` tsx
+hideStatusBar={true}
+hideNavBar={true}
+```
+
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| ![and_all_hide](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/dec76fdc-7dc3-42ac-bf68-d8e8a0ddc8d2) | ![and_all_hide_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/c49dfead-ae26-449a-8ab8-e79bfb92608f) |
+
+#### other props
+
+| noRoundedScreen | frameColor="green"<br>statusbarColor="red"<br>navBarcolor="blue" |
+| :--: | :--: |
+| ![and_noRoundedScreen](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/9ded37e1-edff-43df-a10a-864e7dd4437c) | ![and_colors](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/32de0f9d-f687-4d6d-8ab2-40f08b54fbfa) |
+
+#### default with child
+
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| ![and_default_child](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/1ffaf363-c1f4-4818-a86d-145030c86ef5) | ![and_land_default_child](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3ebc05a9-59ce-4a30-98fe-e32f8b8c8eb5) |
+
+#### props.hideStatusBar
+
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| ![hidestatusbar](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/96c368c4-838a-4c01-ba48-55279ddfdc44) | ![hidestatusbar_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/bb9f836e-223e-4796-997e-aa71b2e2968d) |
+
+#### props.transparentNavBar
+
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| ![trans_navi](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/0dd9a206-4e72-413a-8249-eb359d66eba3)<br>`navBar="bhr"` | ![trans_navi_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/70485119-4b85-4517-9290-1242023ba19b)<br>`navBar="bhr"` |
+
+#### props.hideNavBar
+
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| ![hide_navi](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/8a8330d1-ca94-494e-b55d-af797dcdcfbe) | ![hide_navi_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/13612fe4-d8d2-4589-a6a0-3643ecd37a76) |
+
+#### props.transparentCamArea
+
+AndroidMockup, landscape only
+| isLandscape=false | isLandscape=true |
+| :--: | :--: |
+| none | ![transparentCamArea](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3ed9eba5-758e-46b2-828d-5381015789d0) |
 
 ## License
 
