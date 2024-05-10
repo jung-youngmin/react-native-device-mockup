@@ -17,13 +17,13 @@ interface IAndroidMockupProps {
 	/** default: false */
 	readonly hideStatusBar?: boolean;
 	/** default: "swipe" */
-	readonly navigationBar?: "swipe" | "bhr" | "rhb";
+	readonly navBar?: "swipe" | "bhr" | "rhb";
 	/** default: "#CCCCCC" */
-	readonly navigationBarcolor?: ColorValue;
+	readonly navBarcolor?: ColorValue;
 	/** default: false */
-	readonly transparentNavigationBar?: boolean;
+	readonly transparentNavBar?: boolean;
 	/** default: false */
-	readonly hideNavigationBar?: boolean;
+	readonly hideNavBar?: boolean;
 	/** default: false. Landscape only */
 	readonly transparentCamArea?: boolean;
 }
@@ -47,12 +47,12 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 	}, [props.statusbarColor]);
 
 	const navigationBar = useMemo(() => {
-		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
-	}, [props.navigationBar]);
+		return props.navBar === undefined ? "swipe" : props.navBar;
+	}, [props.navBar]);
 
 	const navigationBarcolor = useMemo(() => {
-		return props.navigationBarcolor === undefined ? "#CCCCCC" : props.navigationBarcolor;
-	}, [props.navigationBarcolor]);
+		return props.navBarcolor === undefined ? "#CCCCCC" : props.navBarcolor;
+	}, [props.navBarcolor]);
 
 	const hideStatusBar = useMemo(() => {
 		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
@@ -63,14 +63,12 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 	}, [props.transparentCamArea]);
 
 	const transparentNavigationBar = useMemo(() => {
-		return props.transparentNavigationBar === undefined
-			? false
-			: props.transparentNavigationBar;
-	}, [props.transparentNavigationBar]);
+		return props.transparentNavBar === undefined ? false : props.transparentNavBar;
+	}, [props.transparentNavBar]);
 
 	const hideNavigationBar = useMemo(() => {
-		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
-	}, [props.hideNavigationBar]);
+		return props.hideNavBar === undefined ? false : props.hideNavBar;
+	}, [props.hideNavBar]);
 
 	return (
 		<View style={props.containerStlye}>
