@@ -40,26 +40,43 @@ Every mockup is rendered as a pure react-native `View` component.
 
 ### AndroidMockup
 
+You can check [demo](#androidmockup---phone)
+
 | prop  | Required | Type | Default | Description |
 | ----- | :------: |----- | ------- | ----------- |
 | screenWidth | O | `number` | | Width of mockup screen<br> [details](#screenwidth) |
-| noRoundedScreen | X | `boolean` | `false` | Do not use rounded corners.<br>[demo](#androidmockup---phone) |
+| noRoundedScreen | X | `boolean` | `false` | Do not use rounded corners. |
 | isLandscape | X | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
 | containerStlye | X | `ViewStyle` | | Styles for mockup container |
-| frameColor | X | `ColorValue` | `"#666666"` | Color of Frame<br>[demo](#androidmockup---phone) |
-| statusbarColor | X | `ColorValue` | `"#CCCCCC"` | Color of status bar<br>[demo](#androidmockup---phone) |
-| hideStatusBar | X | `boolean` | `false` | Hide the status bar<br>[demo](#androidmockup---phone) |
+| frameColor | X | `ColorValue` | `"#666666"` | Color of Frame |
+| statusbarColor | X | `ColorValue` | `"#CCCCCC"` | Color of status bar |
+| hideStatusBar | X | `boolean` | `false` | Hide the status bar<br>[details](#hidestatusbar) |
 | navigationBar | X | `"swipe"`<br>`"bhr"`<br>`"rhb"` | `"swipe"` | Type of navigation bar<br>[details](#navigationbar) |
-| navigationBarcolor | X | `ColorValue` | `"#CCCCCC"` | Color of navigation bar<br>[demo](#androidmockup---phone) |
-| transparentNavigationBar | X | `boolean` | `false` | // TODO<br>[demo](#androidmockup---phone) |
-| hideNavigationBar | X | `boolean` | `false` | // TODO<br>[demo](#androidmockup---phone) |
-| transparentCamArea | X | `boolean` | `false` | Landscape only // TODO<br>[demo](#androidmockup---phone) |
+| navigationBarcolor | X | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
+| transparentNavigationBar | X | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavigationbar) |
+| hideNavigationBar | X | `boolean` | `false` | Hide the navigation bar<br>[details](#hidenavigationbar) |
+| transparentCamArea | X | `boolean` | `false` | Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
+
+---
 
 #### screenWidth
+
+> for: AndroidMockup  
 
 Width of mockup screen.  
 The height is automatically calculated according to the ratio.  
 **NOTE:** It does not mean the full width of the mockup being rendered.
+
+---
+
+#### hideStatusBar
+
+Hide the status bar.
+
+- `false`: Status bar occupies its own space with `statusbarColor`. (default)
+- `true`: Status bar no longer occupies its own area, but becomes part of the screen area.
+
+---
 
 #### navigationBar
 
@@ -68,6 +85,43 @@ Type of navigation bar.
 - `"swipe"`: swipe gesture navigation bar. (modern style)
 - `"bhr"`: back-home-recent buttons. (classic style)
 - `"rhb"`: recent-home-back. (classic style)
+
+---
+
+#### transparentNavigationBar
+
+Make the navigation bar transparent.  
+
+- `false`: Navigation bar occupies its own space with `navigationBarcolor`. (default)
+- `true`: Navigation bar no longer occupies its own area, but becomes part of the screen area.
+  - NOTE: buttons are rendered according to the type specified by `navigationBar` props.
+
+---
+
+#### hideNavigationBar
+
+Hide the navigation bar.  
+
+- `false`: Show the navigation bar. (default)
+- `true`: Hide the navigation bar.
+  - Navigation bar no longer occupies its own area,  
+    but becomes part of the screen area.
+  - NOTE: buttons are **NOT** rendered according to the type specified by `navigationBar` props.
+
+---
+
+#### transparentCamArea
+
+Make the area around the camera transparent.  
+It only works when `isLandscape=true`.  
+It is ignored when `isLandscape=false`
+> **CamArea** (Camera area)  
+> The part that was the status bar when in Portrait.  
+> When in Landscape, in Android Native, this part is simply expressed as an empty (blank) area.
+
+---
+
+<br>
 
 ## Demo
 
