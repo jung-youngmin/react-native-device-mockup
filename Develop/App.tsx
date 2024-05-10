@@ -189,13 +189,12 @@ function App(): React.JSX.Element {
             containerStlye={mockupContainerStyle}
             // frameColor="green"
             // statusbarColor="red"
-            // hideStatusBar
-            // navigationBar="bhr"
-            // navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
-          >
-            <ScreenDemo />
+            hideStatusBar
+            navBar="bhr"
+            navBarcolor="blue"
+            transparentNavBar
+            hideNavBar={true}>
+            {/* <ScreenDemo /> */}
           </AndroidMockup>
           <AndroidMockup
             screenWidth={380}
@@ -204,14 +203,13 @@ function App(): React.JSX.Element {
             containerStlye={mockupContainerStyle}
             // frameColor="green"
             // statusbarColor="red"
-            // hideStatusBar
-            // navigationBar="bhr"
-            // navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
-            // transparentCamArea
-          >
-            <ScreenDemo />
+            hideStatusBar
+            navBar="bhr"
+            navBarcolor="blue"
+            transparentNavBar
+            hideNavBar
+            transparentCamArea>
+            {/* <ScreenDemo /> */}
           </AndroidMockup>
         </>
       )}
@@ -222,30 +220,30 @@ function App(): React.JSX.Element {
             // isLandscape={false}
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
-            frameColor="green"
-            statusbarColor="red"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            navigationBar="rhb"
-            navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
+            // navBar="rhb"
+            // navBarcolor="blue"
+            // transparentNavBar
+            // hideNavBar
           >
-            <ScreenDemo />
+            {/* <ScreenDemo /> */}
           </AndroidTabMockup>
           <AndroidTabMockup
             screenWidth={350}
             isLandscape={true}
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
-            frameColor="green"
-            statusbarColor="red"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            navigationBar="rhb"
-            navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
+            // navBar="rhb"
+            // navBarcolor="blue"
+            // transparentNavBar
+            // hideNavBar
           >
-            <ScreenDemo />
+            {/* <ScreenDemo /> */}
           </AndroidTabMockup>
         </>
       )}

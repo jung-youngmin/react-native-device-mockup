@@ -19,9 +19,9 @@ interface IiPadMockupProps {
 	/** default: false */
 	readonly hideStatusBar?: boolean;
 	/** default: false */
-	readonly transparentNavigationBar?: boolean;
+	readonly transparentNavBar?: boolean;
 	/** default: false */
-	readonly hideNavigationBar?: boolean;
+	readonly hideNavBar?: boolean;
 }
 
 export type IPadMockupProps = PropsWithChildren<IiPadMockupProps>;
@@ -47,14 +47,12 @@ export default function IPadMockup(props: IPadMockupProps) {
 	}, [props.hideStatusBar]);
 
 	const transparentNavigationBar = useMemo(() => {
-		return props.transparentNavigationBar === undefined
-			? false
-			: props.transparentNavigationBar;
-	}, [props.transparentNavigationBar]);
+		return props.transparentNavBar === undefined ? false : props.transparentNavBar;
+	}, [props.transparentNavBar]);
 
 	const hideNavigationBar = useMemo(() => {
-		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
-	}, [props.hideNavigationBar]);
+		return props.hideNavBar === undefined ? false : props.hideNavBar;
+	}, [props.hideNavBar]);
 
 	const Mockup = useMemo(() => {
 		switch (screenType) {

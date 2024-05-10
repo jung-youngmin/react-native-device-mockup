@@ -6,9 +6,9 @@ import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
 interface IAndroidTabMockupProps {
 	readonly screenWidth: number;
 	/** default: false */
-	readonly isLandscape?: boolean;
-	/** default: false */
 	readonly noRoundedScreen?: boolean;
+	/** default: false */
+	readonly isLandscape?: boolean;
 	/** default: true */
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
@@ -18,13 +18,13 @@ interface IAndroidTabMockupProps {
 	/** default: false */
 	readonly hideStatusBar?: boolean;
 	/** default: "swipe" */
-	readonly navigationBar?: "swipe" | "bhr" | "rhb";
+	readonly navBar?: "swipe" | "bhr" | "rhb";
 	/** default: "#CCCCCC" */
-	readonly navigationBarcolor?: ColorValue;
+	readonly navBarcolor?: ColorValue;
 	/** default: false */
-	readonly transparentNavigationBar?: boolean;
+	readonly transparentNavBar?: boolean;
 	/** default: false */
-	readonly hideNavigationBar?: boolean;
+	readonly hideNavBar?: boolean;
 }
 
 export type AndroidTabMockupProps = PropsWithChildren<IAndroidTabMockupProps>;
@@ -46,26 +46,24 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 	}, [props.statusbarColor]);
 
 	const navigationBar = useMemo(() => {
-		return props.navigationBar === undefined ? "swipe" : props.navigationBar;
-	}, [props.navigationBar]);
+		return props.navBar === undefined ? "swipe" : props.navBar;
+	}, [props.navBar]);
 
 	const navigationBarcolor = useMemo(() => {
-		return props.navigationBarcolor === undefined ? "#CCCCCC" : props.navigationBarcolor;
-	}, [props.navigationBarcolor]);
+		return props.navBarcolor === undefined ? "#CCCCCC" : props.navBarcolor;
+	}, [props.navBarcolor]);
 
 	const hideStatusBar = useMemo(() => {
 		return props.hideStatusBar === undefined ? false : props.hideStatusBar;
 	}, [props.hideStatusBar]);
 
 	const transparentNavigationBar = useMemo(() => {
-		return props.transparentNavigationBar === undefined
-			? false
-			: props.transparentNavigationBar;
-	}, [props.transparentNavigationBar]);
+		return props.transparentNavBar === undefined ? false : props.transparentNavBar;
+	}, [props.transparentNavBar]);
 
 	const hideNavigationBar = useMemo(() => {
-		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
-	}, [props.hideNavigationBar]);
+		return props.hideNavBar === undefined ? false : props.hideNavBar;
+	}, [props.hideNavBar]);
 
 	return (
 		<View style={props.containerStlye}>
