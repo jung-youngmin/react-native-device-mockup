@@ -1,8 +1,5 @@
 # WIP: react-native-device-mockup
 
-**Work In Progress**  
-**NOT COMPLETED**
-
 ## Index
 
 1. [Introduction](#introduction)
@@ -16,19 +13,19 @@
 
 `react-native-device-mockup` provides frame mockups for Android and iOS devices.  
 You can use this library when you need a device demo for your app.  
-Every mockup is rendered as a pure react-native `View` component.  
+**Every mockup is rendered as a pure react-native `View` component.**
 
 `react-native-device-mockup` provides the following mockups:
 
 1. Android
-   1. Phone: 19.5:9 aspect ratio
-   2. Tablet: 16:10 aspect ratio
+   1. Phone: 19.5:9 aspect ratio, `AndroidMockup`
+   2. Tablet: 16:10 aspect ratio, `AndroidTabMockup`
 2. iOS
-   1. iPhone
+   1. iPhone, `IPhoneMockup`
       1. legacy iPhone: iPhone SE3
       2. notched iPhone: iPhone 14
       3. Dynamic island iPhone: iPhone 15 Pro
-   2. iPad
+   2. iPad, `IPadMockup`
       1. legacy iPad 4:3 aspect ratio (home button)
       2. modern iPad: 4.3:3 aspect ratio (no home button)
 
@@ -48,48 +45,125 @@ yarn add react-native-device-mockup
 
 ## How to use
 
+``` tsx
+import {
+    AndroidMockup,
+    AndroidTabMockup,
+    IPhoneMockup,
+    IPadMockup
+}
+from "react-native-device-mockup"
+
+
+return (
+  <>
+    {/* Android Phone */}
+    <AndroidMockup screenWidth={200}>
+        {/* your demo */}
+        <YourComponent>
+          {...}
+        </YourComponent>
+    </AndroidMockup>
+
+    {/* Android Tablet */}
+    <AndroidTabMockup screenWidth={200}>
+        {/* your demo */}
+        <YourComponent>
+          {...}
+        </YourComponent>
+    </AndroidTabMockup>
+
+    {/* iPhone */}
+    <IPhoneMockup screenWidth={200}>
+        {/* your demo */}
+        <YourComponent>
+          {...}
+        </YourComponent>
+    </IPhoneMockup>
+
+    {/* iPad */}
+    <IPadMockup screenWidth={200}>
+        {/* your demo */}
+        <YourComponent>
+          {...}
+        </YourComponent>
+    </IPadMockup>
+  </>
+)
+```
+
 ## Props
 
 ### AndroidMockup & AndroidTabMockup
 
-You can check [demo](#android)
+You can check [demo](#demo-android)
+
+| prop               | Required | Type | Default | Description |
+| ------------------ | :------: |----- | ------- | ----------- |
+| screenWidth        | O        | `number` | | Width of mockup screen<br> [details](#screenwidth) |
+| noRoundedScreen    | X        | `boolean` | `false` | Do not use rounded corners. |
+| isLandscape        | X        | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
+| containerStlye     | X        | `ViewStyle` | | Styles for mockup container |
+| frameColor         | X        | `ColorValue` | `"#666666"` | Color of Frame |
+| statusbarColor     | X        | `ColorValue` | `"#CCCCCC"` | Color of status bar |
+| hideStatusBar      | X        | `boolean`    | `false` | Hide the status bar<br>[details](#hidestatusbar) |
+| navBar             | X        | `"swipe"`<br>`"bhr"`<br>`"rhb"` | `"swipe"` | Type of navigation bar<br>[details](#navbar) |
+| navBarcolor        | X        | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
+| transparentNavBar  | X        | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavbar) |
+| hideNavBar         | X        | `boolean` | `false` | Hide the navigation bar<br>[details](#hidenavbar) |
+| transparentCamArea | X        | `boolean` | `false` | *NOTE: AndroidMockup only.*<br>Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
+| children           | X        | `ReactNode` |  | Components to be rendered on the mockup screen |
+
+<br>
+
+### IPhoneMockup & IPadMockup
+
+You can check [demo](#demo-ios)
 
 | prop  | Required | Type | Default | Description |
 | ----- | :------: |----- | ------- | ----------- |
 | screenWidth | O | `number` | | Width of mockup screen<br> [details](#screenwidth) |
-| noRoundedScreen | X | `boolean` | `false` | Do not use rounded corners. |
+| screenType | X | `"legacy"`<br>`"notch"`<br>`"island"` | `"island"` | *for IPhoneMokcup*<br>`"legacy"`: Classic iphone such as iPhone SE3<br>`"notch"`: Notched iPhone such as iPhone 14<br>`"island"`: Dynamic island iPhone such as iPhone 15 Pro |
+| screenType | X | `"legacy"`<br>`"modern"` | `"modern"` | *for IPadMockup*<br>`"legacy"`: Classic iPad such as iPad 9th<br>`"modern"`: Modern iPad such as iPad Pro 13' |
 | isLandscape | X | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
 | containerStlye | X | `ViewStyle` | | Styles for mockup container |
 | frameColor | X | `ColorValue` | `"#666666"` | Color of Frame |
 | statusbarColor | X | `ColorValue` | `"#CCCCCC"` | Color of status bar |
 | hideStatusBar | X | `boolean` | `false` | Hide the status bar<br>[details](#hidestatusbar) |
-| navBar | X | `"swipe"`<br>`"bhr"`<br>`"rhb"` | `"swipe"` | Type of navigation bar<br>[details](#navbar) |
-| navBarcolor | X | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
 | transparentNavBar | X | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavbar) |
 | hideNavBar | X | `boolean` | `false` | Hide the navigation bar<br>[details](#hidenavbar) |
-| transparentCamArea | X | `boolean` | `false` | *NOTE: AndroidMockup only.*<br>Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
 | children | X | `ReactNode` |  | Components to be rendered on the mockup screen |
 
 #### screenWidth
 
-> for: AndroidMockup  
+- `AndroidMockup`, `AndroidTabMockup`, `IPhoneMockup`, `IPadMockup`
 
 Width of mockup screen.  
 The height is automatically calculated according to the ratio.  
-**NOTE:** It does not mean the full width of the mockup being rendered.
+> **NOTE**  
+> It does not mean the full width of the mockup being rendered.
 
 <br>
 
 #### hideStatusBar
+
+- `AndroidMockup`, `AndroidTabMockup`, `IPhoneMockup`, `IPadMockup`
 
 Hide the status bar.
 
 - `false`: Status bar occupies its own space with `statusbarColor`. (default)
 - `true`: Status bar no longer occupies its own area, but becomes part of the screen area.
 
+> **NOTE**  
+> When `isLandscape=true` and `screenType="legacy"` in `iPhoneMockup`,  
+> the status bar is always hidden regardless of `hideStatusBar`.  
+> Even on the classic iPhone, the status bar is always hidden when in landscape mode.
+
 <br>
 
 #### navBar
+
+- `AndroidMockup`, `AndroidTabMockup`
 
 Type of navigation bar.
 
@@ -101,15 +175,22 @@ Type of navigation bar.
 
 #### transparentNavBar
 
+- `AndroidMockup`, `AndroidTabMockup`, `IPhoneMockup`, `IPadMockup`
+
 Make the navigation bar transparent.  
 
 - `false`: Navigation bar occupies its own space with `navBarcolor`. (default)
 - `true`: Navigation bar no longer occupies its own area, but becomes part of the screen area.
-  - NOTE: buttons are rendered according to the type specified by `navBar` props.
+  - **NOTE:** Swipe bar or buttons are rendered according to the type specified by `navBar` props.
+
+> **NOTE**  
+> When `screenType="legacy"` in `iPhoneMockup`, `transparentNavBar` is always ignored.
 
 <br>
 
 #### hideNavBar
+
+- `AndroidMockup`, `AndroidTabMockup`, `IPhoneMockup`, `IPadMockup`
 
 Hide the navigation bar.  
 
@@ -117,11 +198,16 @@ Hide the navigation bar.
 - `true`: Hide the navigation bar.
   - Navigation bar no longer occupies its own area,  
     but becomes part of the screen area.
-  - NOTE: buttons are **NOT** rendered according to the type specified by `navBar` props.
+  - **NOTE:** Swipe bar or buttons are **NOT** rendered according to the type specified by `navBar` props.
+
+> **NOTE**  
+> When `screenType="legacy"` in `iPhoneMockup`, `hideNavBar` is always ignored.
 
 <br>
 
 #### transparentCamArea
+
+> `AndroidMockup`
 
 *AndroidMockup only.*  
 Make the area around the camera transparent.  
@@ -135,7 +221,7 @@ It is ignored when `isLandscape=false`
 
 ## Demo
 
-### Android
+### Demo: Android
 
 - `AndroidMockup`
 - `AndroidTabMockup`
@@ -199,6 +285,32 @@ AndroidMockup, landscape only
 | isLandscape=false | isLandscape=true |
 | :--: | :--: |
 | none | ![transparentCamArea](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/3ed9eba5-758e-46b2-828d-5381015789d0) |
+
+### Demo: iOS
+
+- `IPhoneMockup`
+- `IPadMockup`
+
+#### IPhoneMockup
+
+All props not mentioned are default.  
+Props with the same name as props in `AnroidMockup` work the same way.
+
+| screenType | isLandscape=false | isLandscape=true |
+| :--: | :--: | :--: |
+| `"island"` | ![iphone_island](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/7e03f344-b3d6-4c8f-a475-f7c274b5d960) | ![iphone_island_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/b6aece2d-8281-421d-8db8-aece4ee8f195) |
+| `"notch"` | ![iphone_notch](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/4fae505b-27f1-4cb7-b26f-ef1560a428d0) | ![iphone_notch_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/740c7ebc-bdb2-4551-a722-512e6ea3fe7f) |
+| `"legacy"` | ![iphone_legacy](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/9491b288-3e3d-4fbe-bc9c-fcf094122579) | ![iphone_legacy_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/7edac478-2292-47c2-9deb-4c43b276273d) |
+
+#### IPadMockup
+
+All props not mentioned are default.  
+Props with the same name as props in `AnroidMockup` work the same way.
+
+| screenType | isLandscape=false | isLandscape=true |
+| :--: | :--: | :--: |
+| `"modern"` | ![ipad_modern](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/d401ac58-610d-4972-9eaa-72ced22052d8) | ![ipad_modern_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/c02f665c-7f18-4d52-ace7-633bc961a2f9) |
+| `"legacy"` | ![ipad_legacy](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/6fd14a02-b697-438f-b825-38503e022b62) | ![ipad_legacy_land](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/392facc6-b17b-43fc-aace-b48b0cf5d4b1) |
 
 ## License
 
