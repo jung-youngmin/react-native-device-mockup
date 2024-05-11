@@ -189,12 +189,11 @@ function App(): React.JSX.Element {
             containerStlye={mockupContainerStyle}
             // frameColor="green"
             // statusbarColor="red"
-            // hideStatusBar
-            // navigationBar="bhr"
-            // navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
-          >
+            hideStatusBar
+            navBar="bhr"
+            navBarcolor="blue"
+            transparentNavBar
+            hideNavBar={true}>
             <ScreenDemo />
           </AndroidMockup>
           <AndroidMockup
@@ -204,13 +203,12 @@ function App(): React.JSX.Element {
             containerStlye={mockupContainerStyle}
             // frameColor="green"
             // statusbarColor="red"
-            // hideStatusBar
-            // navigationBar="bhr"
-            // navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
-            // transparentCamArea
-          >
+            hideStatusBar
+            navBar="bhr"
+            navBarcolor="blue"
+            transparentNavBar
+            hideNavBar
+            transparentCamArea>
             <ScreenDemo />
           </AndroidMockup>
         </>
@@ -222,30 +220,30 @@ function App(): React.JSX.Element {
             // isLandscape={false}
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
-            frameColor="green"
-            statusbarColor="red"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            navigationBar="rhb"
-            navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
+            // navBar="rhb"
+            // navBarcolor="blue"
+            // transparentNavBar
+            // hideNavBar
           >
-            <ScreenDemo />
+            {/* <ScreenDemo /> */}
           </AndroidTabMockup>
           <AndroidTabMockup
             screenWidth={350}
             isLandscape={true}
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
-            frameColor="green"
-            statusbarColor="red"
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            navigationBar="rhb"
-            navigationBarcolor="blue"
-            // transparentNavigationBar
-            // hideNavigationBar
+            // navBar="rhb"
+            // navBarcolor="blue"
+            // transparentNavBar
+            // hideNavBar
           >
-            <ScreenDemo />
+            {/* <ScreenDemo /> */}
           </AndroidTabMockup>
         </>
       )}
@@ -254,23 +252,28 @@ function App(): React.JSX.Element {
           <IPhoneMockup
             screenWidth={200}
             screenType="legacy"
-            isLandscape={false}
+            // isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentNavigationBar
-            // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
           <IPhoneMockup
-            isLandscape={true}
             screenWidth={290}
             screenType="legacy"
+            isLandscape={true}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
-            // transparentNavigationBar
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
         </>
       )}
@@ -280,22 +283,27 @@ function App(): React.JSX.Element {
             screenWidth={200}
             screenType="notch"
             isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentNavigationBar
-            // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
           <IPhoneMockup
-            isLandscape={true}
             screenWidth={380}
             screenType="notch"
+            isLandscape={true}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
-            // transparentNavigationBar
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
         </>
       )}
@@ -305,72 +313,87 @@ function App(): React.JSX.Element {
             screenWidth={200}
             screenType="island"
             isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentNavigationBar
-            // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
           <IPhoneMockup
-            isLandscape={true}
             screenWidth={380}
             screenType="island"
+            isLandscape={true}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
-            // transparentNavigationBar
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPhoneMockup>
         </>
       )}
       {showIpadLegacy && (
         <>
           <IPadMockup
-            screenWidth={240}
+            screenWidth={280}
             screenType="legacy"
             isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentNavigationBar
-            // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPadMockup>
           <IPadMockup
-            isLandscape={true}
-            screenWidth={300}
+            screenWidth={320}
             screenType="legacy"
+            isLandscape={true}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
-            // transparentNavigationBar
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPadMockup>
         </>
       )}
       {showIpadModern && (
         <>
           <IPadMockup
-            screenWidth={300}
+            screenWidth={280}
             screenType="modern"
             isLandscape={false}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // transparentNavigationBar
-            // hideNavigationBar
-            // statusbarColor={'#dddddd'}
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPadMockup>
           <IPadMockup
-            isLandscape={true}
-            screenWidth={370}
+            screenWidth={350}
             screenType="modern"
+            isLandscape={true}
+            containerStlye={mockupContainerStyle}
+            // frameColor="green"
+            // statusbarColor="red"
             // hideStatusBar
-            // hideNavigationBar
-            // transparentNavigationBar
-            containerStlye={mockupContainerStyle}>
-            <ScreenDemo />
+            // transparentNavBar
+            // hideNavBar
+          >
+            {/* <ScreenDemo /> */}
           </IPadMockup>
         </>
       )}
@@ -427,7 +450,7 @@ const _ScreenDemo = ({style}: {style?: ViewStyle}) => {
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
           <View style={styles.appIcon} />
-          <View style={[styles.appIcon, {backgroundColor: 'transparent'}]} />
+          <View style={[styles.appIcon, styles.transparent]} />
         </View>
       </View>
     </TouchableHighlight>
@@ -458,6 +481,9 @@ const styles = StyleSheet.create({
     height: 36,
     backgroundColor: '#777777',
     borderRadius: 8,
+  },
+  transparent: {
+    backgroundColor: 'transparent',
   },
 });
 

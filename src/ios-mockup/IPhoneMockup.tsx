@@ -21,9 +21,9 @@ interface IiPhoneMockupProps {
 	/** default: false */
 	readonly hideStatusBar?: boolean;
 	/** default: false */
-	readonly transparentNavigationBar?: boolean;
+	readonly transparentNavBar?: boolean;
 	/** default: false */
-	readonly hideNavigationBar?: boolean;
+	readonly hideNavBar?: boolean;
 }
 
 export type IPhoneMockupProps = PropsWithChildren<IiPhoneMockupProps>;
@@ -49,14 +49,12 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
 	}, [props.hideStatusBar]);
 
 	const transparentNavigationBar = useMemo(() => {
-		return props.transparentNavigationBar === undefined
-			? false
-			: props.transparentNavigationBar;
-	}, [props.transparentNavigationBar]);
+		return props.transparentNavBar === undefined ? false : props.transparentNavBar;
+	}, [props.transparentNavBar]);
 
 	const hideNavigationBar = useMemo(() => {
-		return props.hideNavigationBar === undefined ? false : props.hideNavigationBar;
-	}, [props.hideNavigationBar]);
+		return props.hideNavBar === undefined ? false : props.hideNavBar;
+	}, [props.hideNavBar]);
 
 	const Mockup = useMemo(() => {
 		switch (screenType) {
@@ -97,35 +95,6 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
 				hideNavigationBar={hideNavigationBar}>
 				{props.children}
 			</Mockup>
-			{/* {isLandscape ? (
-				<IPhoneNotchLandscape
-					screenWidth={props.screenWidth}
-					frameColor={frameColor}
-					statusbarColor={statusbarColor}
-					hideStatusBar={hideStatusBar}
-					transparentNavigationBar={transparentNavigationBar}
-					hideNavigationBar={hideNavigationBar}>
-					{props.children}
-				</IPhoneNotchLandscape>
-			) : (
-				<IPhoneNotchPortrait
-					screenWidth={props.screenWidth}
-					frameColor={frameColor}
-					statusbarColor={statusbarColor}
-					hideStatusBar={hideStatusBar}
-					transparentNavigationBar={transparentNavigationBar}
-					hideNavigationBar={hideNavigationBar}>
-					{props.children}
-				</IPhoneNotchPortrait>
-			)} */}
-			{/* <Mockup
-				screenWidth={props.screenWidth}
-				frameColor={frameColor}
-				statusbarColor={statusbarColor}
-				navigationBar={navigationBar}
-				isFullScreen={isFullScreen}>
-				{props.children}
-			</Mockup> */}
 		</View>
 	);
 }
