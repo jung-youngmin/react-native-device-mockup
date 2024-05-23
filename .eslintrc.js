@@ -1,56 +1,14 @@
 module.exports = {
-	env: {
-		es6: true,
-		node: true,
-	},
+	root: true,
 	extends: [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"prettier",
-		"react-app",
+		"@react-native",
+		"eslint-config-prettier", // eslint에서 prettier와 겹치는 설정 끄는 플러그인, 가장 마지막에 있어야함, "prettier"로 써도됨
 	],
-	globals: {
-		Atomics: "readonly",
-		SharedArrayBuffer: "readonly",
-	},
-	parser: "@typescript-eslint/parser",
-	parserOptions: {
-		ecmaFeatures: {
-			jsx: true,
-		},
-		ecmaVersion: 2018,
-		sourceType: "module",
-	},
-	plugins: ["react", "@typescript-eslint"],
 	rules: {
-		indent: ["error", "tab"],
-		"linebreak-style": ["error", "windows"],
-		quotes: ["error", "double"],
-		semi: ["error", "always"],
-		"arrow-parens": ["error", "as-needed"], // a => {}
-		"no-param-reassign": ["error", { props: false }],
-		"no-unused-expressions": [
-			"error",
-			{
-				allowTernary: true, // a || b
-				allowShortCircuit: true, // a ? b : 0
-				allowTaggedTemplates: true,
-			},
-		],
-		"import/no-extraneous-dependencies": [
-			"error",
-			{ devDependencies: true },
-		],
-		"max-len": [
-			"error",
-			{
-				code: 120,
-				ignoreComments: true,
-				ignoreStrings: true,
-				ignoreTemplateLiterals: true,
-			},
-		], // prettier의 printWidth 옵션 대신 사용
+		quotes: [1, "double"], // 쌍따옴표 사용
+		"no-mixed-spaces-and-tabs": [1, "smart-tabs"], // 탭, 띄어쓰기 혼용을 코드 alignment로 사용되었을 때만 허용
+		"react-native/no-inline-styles": 0, // inline-style 허용
+		"@typescript-eslint/no-unused-vars": 0, // 사용하지 않은 변수 무시
 		"prettier/prettier": [
 			"error",
 			{
