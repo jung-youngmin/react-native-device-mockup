@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
-import IPadLegacyPortrait from "./variants/tab/IPadLegacyPortrait";
 import IPadLegacyLandscape from "./variants/tab/IPadLegacyLandscape";
-import IPadModernPortrait from "./variants/tab/IPadModernPortrait";
+import IPadLegacyPortrait from "./variants/tab/IPadLegacyPortrait";
 import IPadModernLandscape from "./variants/tab/IPadModernLandscape";
+import IPadModernPortrait from "./variants/tab/IPadModernPortrait";
 
 interface IiPadMockupProps {
 	readonly screenWidth: number;
@@ -14,6 +14,8 @@ interface IiPadMockupProps {
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
+	/** default: false */
+	readonly frameOnly?: boolean;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
 	/** default: false */
@@ -37,6 +39,10 @@ export default function IPadMockup(props: IPadMockupProps) {
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
 	}, [props.frameColor]);
+
+	const frameOnly = useMemo(() => {
+		return props.frameOnly === undefined ? false : props.frameOnly;
+	}, [props.frameOnly]);
 
 	const statusbarColor = useMemo(() => {
 		return props.statusbarColor === undefined ? "#CCCCCC" : props.statusbarColor;
@@ -80,6 +86,7 @@ export default function IPadMockup(props: IPadMockupProps) {
 			<Mockup
 				screenWidth={props.screenWidth}
 				frameColor={frameColor}
+				frameOnly={frameOnly}
 				statusbarColor={statusbarColor}
 				hideStatusBar={hideStatusBar}
 				transparentNavigationBar={transparentNavigationBar}

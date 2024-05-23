@@ -14,9 +14,9 @@ import {
   TextStyle,
   TouchableHighlight,
   TouchableOpacity,
-  useColorScheme,
   View,
   ViewStyle,
+  useColorScheme,
 } from 'react-native';
 import {
   AndroidMockup,
@@ -188,6 +188,7 @@ function App(): React.JSX.Element {
             // isLandscape={false}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             hideStatusBar
             navBar="bhr"
@@ -202,6 +203,7 @@ function App(): React.JSX.Element {
             isLandscape={true}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             hideStatusBar
             navBar="bhr"
@@ -221,6 +223,7 @@ function App(): React.JSX.Element {
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // navBar="rhb"
@@ -236,6 +239,7 @@ function App(): React.JSX.Element {
             // noRoundedScreen
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // navBar="rhb"
@@ -255,6 +259,7 @@ function App(): React.JSX.Element {
             // isLandscape={false}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -268,6 +273,7 @@ function App(): React.JSX.Element {
             isLandscape={true}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -285,6 +291,7 @@ function App(): React.JSX.Element {
             isLandscape={false}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -298,6 +305,7 @@ function App(): React.JSX.Element {
             isLandscape={true}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -315,6 +323,7 @@ function App(): React.JSX.Element {
             isLandscape={false}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -328,6 +337,7 @@ function App(): React.JSX.Element {
             isLandscape={true}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -375,6 +385,7 @@ function App(): React.JSX.Element {
             isLandscape={false}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar
@@ -388,6 +399,7 @@ function App(): React.JSX.Element {
             isLandscape={true}
             containerStlye={mockupContainerStyle}
             // frameColor="green"
+            // frameOnly
             // statusbarColor="red"
             // hideStatusBar
             // transparentNavBar

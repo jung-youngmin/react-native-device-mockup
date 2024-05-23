@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupVariantProps>) {
@@ -7,6 +7,7 @@ export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupV
 		screenWidth,
 		screenRounded,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		navigationBar,
 		navigationBarcolor,
@@ -21,8 +22,13 @@ export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupV
 			frameColor,
 			statusbarColor,
 			navigationBarcolor,
+			frameOnly,
 		);
-	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -38,7 +44,7 @@ export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupV
 						</View>
 					)}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 					{/* camera - fullScreen - portrait */}
 					{hideStatusBar && <View style={styles.cameraFullScreenPortrait} />}
 
@@ -96,8 +102,12 @@ export default function AndroidPortrait(props: PropsWithChildren<IAndroidMockupV
 						))}
 				</View>
 			</View>
-			<View style={styles.volumePortrait} />
-			<View style={styles.powerPortrait} />
+			{!frameOnly && (
+				<>
+					<View style={styles.volumePortrait} />
+					<View style={styles.powerPortrait} />
+				</>
+			)}
 		</View>
 	);
 }
@@ -108,6 +118,7 @@ const getStyles = (
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
 	navigationBarcolor: ColorValue,
+	frameOnly: boolean,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 1080);
@@ -132,7 +143,7 @@ const getStyles = (
 			height: heightAndFrame,
 			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
 			backgroundColor: frameColor,
-			marginRight: frameButtonWidth - HALF_FRAME_WIDTH + 1,
+			marginRight: frameOnly ? 0 : frameButtonWidth - HALF_FRAME_WIDTH + 1,
 		},
 		frame: {
 			width: widthAndFrame,

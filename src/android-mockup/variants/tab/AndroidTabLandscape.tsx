@@ -1,11 +1,13 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMockupVariantProps>) {
 	const {
+		screenWidth,
 		screenRounded,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		navigationBar,
 		navigationBarcolor,
@@ -15,13 +17,18 @@ export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMoc
 	} = props;
 	const styles = useMemo(() => {
 		return getStyles(
-			props.screenWidth,
+			screenWidth,
 			screenRounded,
 			frameColor,
 			statusbarColor,
 			navigationBarcolor,
+			frameOnly,
 		);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -32,8 +39,8 @@ export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMoc
 					{/* status bar */}
 					{hideStatusBar === false && <View style={styles.statusbarPortrait} />}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>
-						<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>
+						<View style={flex1}>{props.children}</View>
 					</View>
 					{/* navigation bar - swipe */}
 					{hideNavigationBar === false &&
@@ -89,8 +96,12 @@ export default function AndroidTabLandscape(props: PropsWithChildren<IAndroidMoc
 			<View style={styles.cameraLandscapeContainer}>
 				<View style={styles.camera} />
 			</View>
-			<View style={styles.volumeLandscape} />
-			<View style={styles.powerLandscape} />
+			{!frameOnly && (
+				<>
+					<View style={styles.volumeLandscape} />
+					<View style={styles.powerLandscape} />
+				</>
+			)}
 		</View>
 	);
 }
@@ -101,6 +112,7 @@ const getStyles = (
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
 	navigationBarcolor: ColorValue,
+	frameOnly: boolean,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 2560);
@@ -125,7 +137,7 @@ const getStyles = (
 			height: heightAndFrame,
 			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
 			backgroundColor: frameColor,
-			marginTop: frameButtonHeight - HALF_FRAME_WIDTH,
+			marginTop: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			width: widthAndFrame,

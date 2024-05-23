@@ -6,6 +6,8 @@ export interface IAndroidMockupVariantProps {
 	readonly screenRounded: boolean;
 	/** default: "#666666" */
 	readonly frameColor: ColorValue;
+	/** default: false */
+	readonly frameOnly: boolean;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor: ColorValue;
 	/** default: "#CCCCCC" */

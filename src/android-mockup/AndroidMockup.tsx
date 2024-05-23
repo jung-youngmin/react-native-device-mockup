@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
-import AndroidPortrait from "./variants/phone/AndroidPortrait";
 import AndroidLandscape from "./variants/phone/AndroidLandscape";
+import AndroidPortrait from "./variants/phone/AndroidPortrait";
 
 interface IAndroidMockupProps {
 	readonly screenWidth: number;
@@ -12,6 +12,8 @@ interface IAndroidMockupProps {
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
+	/** default: false */
+	readonly frameOnly?: boolean;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
 	/** default: false */
@@ -41,6 +43,10 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
 	}, [props.frameColor]);
+
+	const frameOnly = useMemo(() => {
+		return props.frameOnly === undefined ? false : props.frameOnly;
+	}, [props.frameOnly]);
 
 	const statusbarColor = useMemo(() => {
 		return props.statusbarColor === undefined ? "#CCCCCC" : props.statusbarColor;
@@ -77,6 +83,7 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 					screenWidth={props.screenWidth}
 					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
+					frameOnly={frameOnly}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
 					navigationBarcolor={navigationBarcolor}
@@ -91,6 +98,7 @@ export default function AndroidMockup(props: AndroidMockupProps) {
 					screenWidth={props.screenWidth}
 					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
+					frameOnly={frameOnly}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
 					navigationBarcolor={navigationBarcolor}

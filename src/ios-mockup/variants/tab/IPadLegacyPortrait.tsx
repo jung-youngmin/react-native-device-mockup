@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPadLegacyPortrait(props: PropsWithChildren<IIosMockupVariantProps>) {
@@ -8,11 +8,15 @@ export default function IPadLegacyPortrait(props: PropsWithChildren<IIosMockupVa
 		return getStyles(screenWidth, frameColor, statusbarColor);
 	}, [screenWidth, frameColor, statusbarColor]);
 
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.upperBezel}>
 				<View style={styles.camSpeakerCont}>
-					<View style={styles.camera}></View>
+					<View style={styles.camera} />
 				</View>
 			</View>
 			{/* frame */}
@@ -21,11 +25,11 @@ export default function IPadLegacyPortrait(props: PropsWithChildren<IIosMockupVa
 				<View style={styles.screen}>
 					{hideStatusBar === false && <View style={styles.statusbar} />}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 				</View>
 			</View>
 			<View style={styles.lowerBezel}>
-				<View style={styles.homeButoon}></View>
+				<View style={styles.homeButoon} />
 			</View>
 		</View>
 	);
