@@ -1,19 +1,23 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPhoneLegacyPortrait(props: PropsWithChildren<IIosMockupVariantProps>) {
-	const { screenWidth, frameColor, statusbarColor, hideStatusBar } = props;
+	const { screenWidth, frameColor, frameOnly, statusbarColor, hideStatusBar } = props;
 	const styles = useMemo(() => {
-		return getStyles(screenWidth, frameColor, statusbarColor);
-	}, [screenWidth, frameColor, statusbarColor]);
+		return getStyles(screenWidth, frameColor, statusbarColor, frameOnly);
+	}, [screenWidth, frameColor, statusbarColor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.upperBezel}>
 				<View style={styles.camSpeakerCont}>
 					<View style={styles.speaker}>
-						<View style={styles.camera}></View>
+						<View style={styles.camera} />
 					</View>
 				</View>
 			</View>
@@ -21,24 +25,32 @@ export default function IPhoneLegacyPortrait(props: PropsWithChildren<IIosMockup
 			<View style={styles.frame}>
 				{/* screen */}
 				<View style={styles.screen}>
-					{hideStatusBar === false && <View style={styles.statusbar}></View>}
+					{hideStatusBar === false && <View style={styles.statusbar} />}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 				</View>
 			</View>
 			<View style={styles.lowerBezel}>
-				<View style={styles.homeButoon}></View>
+				<View style={styles.homeButoon} />
 			</View>
-
-			<View style={styles.silenceSwitch} />
-			<View style={styles.volumeUp} />
-			<View style={styles.volumeDown} />
-			<View style={styles.powerPortrait} />
+			{!frameOnly && (
+				<>
+					<View style={styles.silenceSwitch} />
+					<View style={styles.volumeUp} />
+					<View style={styles.volumeDown} />
+					<View style={styles.powerPortrait} />
+				</>
+			)}
 		</View>
 	);
 }
 
-const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
+const getStyles = (
+	screenWidth: number,
+	frameColor: ColorValue,
+	statusbarColor: ColorValue,
+	frameOnly: boolean,
+) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 375);
 		return Math.max(sizeRatio, 1);
@@ -62,7 +74,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			height: mHeight + upperBezelHeight + lowerBezelHeight,
 			borderRadius: getSizeWithRatio(60),
 			backgroundColor: frameColor,
-			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
+			marginHorizontal: frameOnly ? 0 : frameButtonWidth - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			backgroundColor: frameColor,

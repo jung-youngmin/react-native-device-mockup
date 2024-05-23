@@ -1,11 +1,11 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
-import IPhoneNotchPortrait from "./variants/phone/IPhoneNotchPortrait";
-import IPhoneNotchLandscape from "./variants/phone/IPhoneNotchLandscape";
-import IPhoneIslandPortrait from "./variants/phone/IPhoneIslandPortrait";
 import IPhoneIslandLandscape from "./variants/phone/IPhoneIslandLandscape";
-import IPhoneLegacyPortrait from "./variants/phone/IPhoneLegacyPortrait";
+import IPhoneIslandPortrait from "./variants/phone/IPhoneIslandPortrait";
 import IPhoneLegacyLandscape from "./variants/phone/IPhoneLegacyLandscape";
+import IPhoneLegacyPortrait from "./variants/phone/IPhoneLegacyPortrait";
+import IPhoneNotchLandscape from "./variants/phone/IPhoneNotchLandscape";
+import IPhoneNotchPortrait from "./variants/phone/IPhoneNotchPortrait";
 
 interface IiPhoneMockupProps {
 	readonly screenWidth: number;
@@ -16,6 +16,8 @@ interface IiPhoneMockupProps {
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
+	/** default: false */
+	readonly frameOnly?: boolean;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
 	/** default: false */
@@ -39,6 +41,10 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
 	}, [props.frameColor]);
+
+	const frameOnly = useMemo(() => {
+		return props.frameOnly === undefined ? false : props.frameOnly;
+	}, [props.frameOnly]);
 
 	const statusbarColor = useMemo(() => {
 		return props.statusbarColor === undefined ? "#CCCCCC" : props.statusbarColor;
@@ -89,6 +95,7 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
 			<Mockup
 				screenWidth={props.screenWidth}
 				frameColor={frameColor}
+				frameOnly={frameOnly}
 				statusbarColor={statusbarColor}
 				hideStatusBar={hideStatusBar}
 				transparentNavigationBar={transparentNavigationBar}

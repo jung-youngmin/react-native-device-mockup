@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useMemo } from "react";
 import { ColorValue, StyleProp, View, ViewStyle } from "react-native";
-import AndroidTabPortrait from "./variants/tab/AndroidTabPortrait";
 import AndroidTabLandscape from "./variants/tab/AndroidTabLandscape";
+import AndroidTabPortrait from "./variants/tab/AndroidTabPortrait";
 
 interface IAndroidTabMockupProps {
 	readonly screenWidth: number;
@@ -13,6 +13,8 @@ interface IAndroidTabMockupProps {
 	readonly containerStlye?: StyleProp<ViewStyle>;
 	/** default: "#666666" */
 	readonly frameColor?: ColorValue;
+	/** default: false */
+	readonly frameOnly?: boolean;
 	/** default: "#CCCCCC" */
 	readonly statusbarColor?: ColorValue;
 	/** default: false */
@@ -40,6 +42,10 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 	const frameColor = useMemo(() => {
 		return props.frameColor === undefined ? "#666666" : props.frameColor;
 	}, [props.frameColor]);
+
+	const frameOnly = useMemo(() => {
+		return props.frameOnly === undefined ? false : props.frameOnly;
+	}, [props.frameOnly]);
 
 	const statusbarColor = useMemo(() => {
 		return props.statusbarColor === undefined ? "#CCCCCC" : props.statusbarColor;
@@ -72,6 +78,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 					screenWidth={props.screenWidth}
 					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
+					frameOnly={frameOnly}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
 					navigationBarcolor={navigationBarcolor}
@@ -85,6 +92,7 @@ export default function AndroidTabMockup(props: AndroidTabMockupProps) {
 					screenWidth={props.screenWidth}
 					screenRounded={!noRoundedScreen}
 					frameColor={frameColor}
+					frameOnly={frameOnly}
 					statusbarColor={statusbarColor}
 					navigationBar={navigationBar}
 					navigationBarcolor={navigationBarcolor}

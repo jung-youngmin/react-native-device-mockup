@@ -1,18 +1,24 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPhoneIslandLandscape(props: PropsWithChildren<IIosMockupVariantProps>) {
 	const {
+		screenWidth,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, frameColor, statusbarColor);
-	}, [props.screenWidth, frameColor, statusbarColor]);
+		return getStyles(screenWidth, frameColor, statusbarColor, frameOnly);
+	}, [screenWidth, frameColor, statusbarColor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -22,12 +28,12 @@ export default function IPhoneIslandLandscape(props: PropsWithChildren<IIosMocku
 				<View style={styles.screen}>
 					{hideStatusBar === false && (
 						<View style={styles.notchContainer}>
-							<View style={styles.island}></View>
+							<View style={styles.island} />
 						</View>
 					)}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>
-						<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>
+						<View style={flex1}>{props.children}</View>
 						{hideNavigationBar === false && transparentNavigationBar === false && (
 							<View style={styles.swipeContainer}>
 								<View style={styles.swipeBar} />
@@ -38,7 +44,7 @@ export default function IPhoneIslandLandscape(props: PropsWithChildren<IIosMocku
 				</View>
 				{hideStatusBar && (
 					<View pointerEvents="none" style={styles.notchContainerFullScreen}>
-						<View style={styles.island}></View>
+						<View style={styles.island} />
 					</View>
 				)}
 				{hideNavigationBar === false && transparentNavigationBar && (
@@ -47,15 +53,24 @@ export default function IPhoneIslandLandscape(props: PropsWithChildren<IIosMocku
 					</View>
 				)}
 			</View>
-			<View style={styles.silenceSwitch} />
-			<View style={styles.volumeUp} />
-			<View style={styles.volumeDown} />
-			<View style={styles.powerPortrait} />
+			{!frameOnly && (
+				<>
+					<View style={styles.silenceSwitch} />
+					<View style={styles.volumeUp} />
+					<View style={styles.volumeDown} />
+					<View style={styles.powerPortrait} />
+				</>
+			)}
 		</View>
 	);
 }
 
-const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
+const getStyles = (
+	screenWidth: number,
+	frameColor: ColorValue,
+	statusbarColor: ColorValue,
+	frameOnly: boolean,
+) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 844);
 		return Math.max(sizeRatio, 1);
@@ -80,7 +95,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
 			flexDirection: "row",
-			marginVertical: frameButtonHeight - HALF_FRAME_WIDTH,
+			marginVertical: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			width: widthAndFrame,

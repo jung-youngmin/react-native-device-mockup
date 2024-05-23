@@ -16,7 +16,9 @@ You can use this library when you need a device demo for your app.
 **Every mockup is rendered as a pure react-native `View` component.**
 
 `react-native-device-mockup` provides the following mockups:
-> **you can find [🌐 full-demo-here](https://jung-youngmin.github.io/react-device-mockup-demo/)**
+> You can check out the
+> [🌐 full-demo-here](https://jung-youngmin.github.io/react-device-mockup-demo/)  
+> Package for **React** is [🌐 here](https://github.com/jung-youngmin/react-device-mockup)
 
 1. Android
    1. Phone: 19.5:9 aspect ratio, `AndroidMockup`
@@ -106,6 +108,7 @@ You can check [demo](#demo-android)
 | isLandscape        | X        | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
 | containerStlye     | X        | `ViewStyle` | | Styles for mockup container |
 | frameColor         | X        | `ColorValue` | `"#666666"` | Color of Frame |
+| frameOnly          | X        | `boolean` | `false` | Only the frame is shown.<br>Power button and volume buttons are hidden |
 | statusbarColor     | X        | `ColorValue` | `"#CCCCCC"` | Color of status bar |
 | hideStatusBar      | X        | `boolean`    | `false` | Hide the status bar<br>[details](#hidestatusbar) |
 | navBar             | X        | `"swipe"`<br>`"bhr"`<br>`"rhb"` | `"swipe"` | Type of navigation bar<br>[details](#navbar) |
@@ -129,6 +132,7 @@ You can check [demo](#demo-ios)
 | isLandscape | X | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
 | containerStlye | X | `ViewStyle` | | Styles for mockup container |
 | frameColor | X | `ColorValue` | `"#666666"` | Color of Frame |
+| frameOnly          | X        | `boolean` | `false` | Only the frame is shown.<br>Power button and volume buttons are hidden |
 | statusbarColor | X | `ColorValue` | `"#CCCCCC"` | Color of status bar |
 | hideStatusBar | X | `boolean` | `false` | Hide the status bar<br>[details](#hidestatusbar) |
 | transparentNavBar | X | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavbar) |

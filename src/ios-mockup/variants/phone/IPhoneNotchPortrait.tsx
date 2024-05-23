@@ -1,18 +1,24 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupVariantProps>) {
 	const {
+		screenWidth,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, frameColor, statusbarColor);
-	}, [props.screenWidth, frameColor, statusbarColor]);
+		return getStyles(screenWidth, frameColor, statusbarColor, frameOnly);
+	}, [screenWidth, frameColor, statusbarColor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -22,11 +28,11 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 				<View style={styles.screen}>
 					{hideStatusBar === false && (
 						<View style={styles.notchContainer}>
-							<View style={styles.notch}></View>
+							<View style={styles.notch} />
 						</View>
 					)}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 					{hideNavigationBar === false && transparentNavigationBar === false && (
 						<View style={styles.swipeContainer}>
 							<View style={styles.swipeBar} />
@@ -35,7 +41,7 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 				</View>
 				{hideStatusBar && (
 					<View pointerEvents="none" style={styles.notchContainerFullScreen}>
-						<View style={styles.notch}></View>
+						<View style={styles.notch} />
 					</View>
 				)}
 				{hideNavigationBar === false && transparentNavigationBar && (
@@ -45,15 +51,24 @@ export default function IPhoneNotchPortrait(props: PropsWithChildren<IIosMockupV
 				)}
 			</View>
 			<View style={styles.notchPad} />
-			<View style={styles.silenceSwitch} />
-			<View style={styles.volumeUp} />
-			<View style={styles.volumeDown} />
-			<View style={styles.powerPortrait} />
+			{!frameOnly && (
+				<>
+					<View style={styles.silenceSwitch} />
+					<View style={styles.volumeUp} />
+					<View style={styles.volumeDown} />
+					<View style={styles.powerPortrait} />
+				</>
+			)}
 		</View>
 	);
 }
 
-const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
+const getStyles = (
+	screenWidth: number,
+	frameColor: ColorValue,
+	statusbarColor: ColorValue,
+	frameOnly: boolean,
+) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 390);
 		return Math.max(sizeRatio, 1);
@@ -77,7 +92,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			height: heightAndFrame,
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
-			marginHorizontal: frameButtonWidth - HALF_FRAME_WIDTH,
+			marginHorizontal: frameOnly ? 0 : frameButtonWidth - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			width: widthAndFrame,

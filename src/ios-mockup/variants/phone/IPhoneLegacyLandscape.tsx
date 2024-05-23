@@ -1,19 +1,23 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPhoneLegacyLandscape(props: PropsWithChildren<IIosMockupVariantProps>) {
-	const { screenWidth, frameColor, statusbarColor } = props;
+	const { screenWidth, frameColor, frameOnly, statusbarColor } = props;
 	const styles = useMemo(() => {
-		return getStyles(screenWidth, frameColor, statusbarColor);
-	}, [screenWidth, frameColor, statusbarColor]);
+		return getStyles(screenWidth, frameColor, statusbarColor, frameOnly);
+	}, [screenWidth, frameColor, statusbarColor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.upperBezel}>
 				<View style={styles.camSpeakerCont}>
 					<View style={styles.speaker}>
-						<View style={styles.camera}></View>
+						<View style={styles.camera} />
 					</View>
 				</View>
 			</View>
@@ -22,22 +26,30 @@ export default function IPhoneLegacyLandscape(props: PropsWithChildren<IIosMocku
 				{/* screen */}
 				<View style={styles.screen}>
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 				</View>
 			</View>
 			<View style={styles.lowerBezel}>
-				<View style={styles.homeButoon}></View>
+				<View style={styles.homeButoon} />
 			</View>
-
-			<View style={styles.silenceSwitch} />
-			<View style={styles.volumeUp} />
-			<View style={styles.volumeDown} />
-			<View style={styles.power} />
+			{!frameOnly && (
+				<>
+					<View style={styles.silenceSwitch} />
+					<View style={styles.volumeUp} />
+					<View style={styles.volumeDown} />
+					<View style={styles.power} />
+				</>
+			)}
 		</View>
 	);
 }
 
-const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
+const getStyles = (
+	screenWidth: number,
+	frameColor: ColorValue,
+	statusbarColor: ColorValue,
+	frameOnly: boolean,
+) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 667);
 		return Math.max(sizeRatio, 1);
@@ -64,7 +76,7 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
 			flexDirection: "row",
-			marginVertical: frameButtonHeight - HALF_FRAME_WIDTH,
+			marginVertical: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			backgroundColor: frameColor,

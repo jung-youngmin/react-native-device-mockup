@@ -1,18 +1,24 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IIosMockupVariantProps } from "../variants-interface";
 
 export default function IPadModernLandscape(props: PropsWithChildren<IIosMockupVariantProps>) {
 	const {
+		screenWidth,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		hideStatusBar,
 		hideNavigationBar,
 		transparentNavigationBar,
 	} = props;
 	const styles = useMemo(() => {
-		return getStyles(props.screenWidth, frameColor, statusbarColor);
-	}, [props.screenWidth, frameColor, statusbarColor]);
+		return getStyles(screenWidth, frameColor, statusbarColor, frameOnly);
+	}, [screenWidth, frameColor, statusbarColor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -22,7 +28,7 @@ export default function IPadModernLandscape(props: PropsWithChildren<IIosMockupV
 				<View style={styles.screen}>
 					{hideStatusBar === false && <View style={styles.notchContainer} />}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>{props.children}</View>
+					<View style={flex1}>{props.children}</View>
 					{hideNavigationBar === false && transparentNavigationBar === false && (
 						<View style={styles.swipeContainer}>
 							<View style={styles.swipeBar} />
@@ -38,14 +44,23 @@ export default function IPadModernLandscape(props: PropsWithChildren<IIosMockupV
 					</View>
 				)}
 			</View>
-			<View style={styles.volumeUp} />
-			<View style={styles.volumeDown} />
-			<View style={styles.power} />
+			{!frameOnly && (
+				<>
+					<View style={styles.volumeUp} />
+					<View style={styles.volumeDown} />
+					<View style={styles.power} />
+				</>
+			)}
 		</View>
 	);
 }
 
-const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: ColorValue) => {
+const getStyles = (
+	screenWidth: number,
+	frameColor: ColorValue,
+	statusbarColor: ColorValue,
+	frameOnly: boolean,
+) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 1194);
 		return Math.max(sizeRatio, 1);
@@ -69,8 +84,8 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			height: heightAndFrame,
 			borderRadius: bezelRadius,
 			backgroundColor: frameColor,
-			marginTop: frameButtonHeight - HALF_FRAME_WIDTH,
-			marginLeft: frameButtonHeight - HALF_FRAME_WIDTH,
+			marginTop: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH,
+			marginLeft: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH,
 		},
 		frame: {
 			width: widthAndFrame,
@@ -102,8 +117,9 @@ const getStyles = (screenWidth: number, frameColor: ColorValue, statusbarColor: 
 			bottom: 0,
 			width: "100%",
 			height: getSizeWithRatio(20),
+			paddingTop: getSizeWithRatio(4),
 			alignItems: "center",
-			justifyContent: "flex-end",
+			justifyContent: "center",
 		},
 		swipeContainer: {
 			width: "100%",

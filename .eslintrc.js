@@ -7,10 +7,10 @@ module.exports = {
 	rules: {
 		quotes: [1, "double"], // 쌍따옴표 사용
 		"no-mixed-spaces-and-tabs": [1, "smart-tabs"], // 탭, 띄어쓰기 혼용을 코드 alignment로 사용되었을 때만 허용
-		"react-native/no-inline-styles": 0, // inline-style 허용
-		"@typescript-eslint/no-unused-vars": 0, // 사용하지 않은 변수 무시
+		// "react-native/no-inline-styles": 0, // inline-style 허용
+		"@typescript-eslint/no-unused-vars": 1, // 사용하지 않은 변수 무시
 		"prettier/prettier": [
-			"error",
+			1,
 			{
 				endOfLine: "auto",
 			},

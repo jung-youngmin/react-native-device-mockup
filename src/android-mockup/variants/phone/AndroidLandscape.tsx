@@ -1,13 +1,15 @@
 import React, { PropsWithChildren, useMemo } from "react";
-import { ColorValue, StyleSheet, View } from "react-native";
+import { ColorValue, StyleSheet, View, ViewStyle } from "react-native";
 import { IAndroidMockupVariantProps } from "../variants-interface";
 
 export default function AndroidLandscape(
 	props: PropsWithChildren<IAndroidMockupVariantProps & { readonly transparentCamArea: boolean }>,
 ) {
 	const {
+		screenWidth,
 		screenRounded,
 		frameColor,
+		frameOnly,
 		statusbarColor,
 		navigationBar,
 		navigationBarcolor,
@@ -16,15 +18,21 @@ export default function AndroidLandscape(
 		transparentNavigationBar,
 		transparentCamArea,
 	} = props;
+
 	const styles = useMemo(() => {
 		return getStyles(
-			props.screenWidth,
+			screenWidth,
 			screenRounded,
 			frameColor,
 			statusbarColor,
 			navigationBarcolor,
+			frameOnly,
 		);
-	}, [props.screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor]);
+	}, [screenWidth, screenRounded, frameColor, statusbarColor, navigationBarcolor, frameOnly]);
+
+	const flex1 = useMemo<ViewStyle>(() => {
+		return { flex: 1 };
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -40,9 +48,9 @@ export default function AndroidLandscape(
 						</View>
 					)}
 					{/* screen content */}
-					<View style={{ flex: 1 }}>
+					<View style={flex1}>
 						{hideStatusBar === false && <View style={styles.statusbar} />}
-						<View style={{ flex: 1 }}>{props.children}</View>
+						<View style={flex1}>{props.children}</View>
 						{/* navigation bar - swipe */}
 						{hideNavigationBar === false &&
 							navigationBar === "swipe" &&
@@ -106,8 +114,12 @@ export default function AndroidLandscape(
 						))}
 				</View>
 			</View>
-			<View style={styles.volumeLandscape} />
-			<View style={styles.powerLandscape} />
+			{!frameOnly && (
+				<>
+					<View style={styles.volumeLandscape} />
+					<View style={styles.powerLandscape} />
+				</>
+			)}
 		</View>
 	);
 }
@@ -118,6 +130,7 @@ const getStyles = (
 	frameColor: ColorValue,
 	statusbarColor: ColorValue,
 	navigationBarcolor: ColorValue,
+	frameOnly: boolean,
 ) => {
 	const getSizeWithRatio = (size: number) => {
 		const sizeRatio = Math.floor((screenWidth * size) / 2340);
@@ -142,7 +155,7 @@ const getStyles = (
 			height: heightAndFrame,
 			borderRadius: screenRounded ? getSizeWithRatio(140) : getSizeWithRatio(30),
 			backgroundColor: frameColor,
-			marginTop: frameButtonHeight - HALF_FRAME_WIDTH + 1,
+			marginTop: frameOnly ? 0 : frameButtonHeight - HALF_FRAME_WIDTH + 1,
 		},
 		frame: {
 			width: widthAndFrame,
