@@ -1,5 +1,20 @@
 # react-native-device-mockup
 
+![Static Badge](https://img.shields.io/badge/React--Native-blue?style=for-the-badge&logo=react)
+[![Static Badge](https://img.shields.io/badge/demo-react--native--device--mockup-blue?style=for-the-badge&logo=createreactapp)](https://jung-youngmin.github.io/react-device-mockup-demo/)
+
+[![GitHub Tag](https://img.shields.io/github/v/tag/jung-youngmin/react-native-device-mockup?include_prereleases&style=for-the-badge&logo=github)](https://github.com/jung-youngmin/react-native-device-mockup)
+[![NPM Version](https://img.shields.io/npm/v/react-native-device-mockup?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/react-native-device-mockup)
+[![NPM Unpacked Size](https://img.shields.io/npm/unpacked-size/react-native-device-mockup?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/react-native-device-mockup)
+
+[![Static Badge](https://img.shields.io/badge/repo-Github-black?style=for-the-badge&logo=github)](https://github.com/jung-youngmin/react-native-device-mockup)
+![GitHub top language](https://img.shields.io/github/languages/top/jung-youngmin/react-native-device-mockup?style=for-the-badge&logo=Typescript)
+![GitHub License](https://img.shields.io/github/license/jung-youngmin/react-native-device-mockup?style=for-the-badge&logo=github)
+
+You can check out the
+[🌐 full-demo-here](https://jung-youngmin.github.io/react-device-mockup-demo/)  
+Package for **React** is [🌐 here](https://github.com/jung-youngmin/react-device-mockup)
+
 ## Index
 
 1. [Introduction](#introduction)
@@ -16,9 +31,6 @@ You can use this library when you need a device demo for your app.
 **Every mockup is rendered as a pure react-native `View` component.**
 
 `react-native-device-mockup` provides the following mockups:
-> You can check out the
-> [🌐 full-demo-here](https://jung-youngmin.github.io/react-device-mockup-demo/)  
-> Package for **React** is [🌐 here](https://github.com/jung-youngmin/react-device-mockup)
 
 1. Android
    1. Phone: 19.5:9 aspect ratio, `AndroidMockup`
@@ -104,7 +116,7 @@ You can check [demo](#demo-android)
 | prop               | Required | Type | Default | Description |
 | ------------------ | :------: |----- | ------- | ----------- |
 | screenWidth        | O        | `number` | | Width of mockup screen<br> [details](#screenwidth) |
-| noRoundedScreen    | X        | `boolean` | `false` | Do not use rounded corners. |
+| noRoundedScreen    | X        | `boolean` | `false` | No use rounded screen corners |
 | isLandscape        | X        | `boolean` | `false` | portrait or landscape<br>`false` means portrait |
 | containerStlye     | X        | `ViewStyle` | | Styles for mockup container |
 | frameColor         | X        | `ColorValue` | `"#666666"` | Color of Frame |
@@ -112,7 +124,7 @@ You can check [demo](#demo-android)
 | statusbarColor     | X        | `ColorValue` | `"#CCCCCC"` | Color of status bar |
 | hideStatusBar      | X        | `boolean`    | `false` | Hide the status bar<br>[details](#hidestatusbar) |
 | navBar             | X        | `"swipe"`<br>`"bhr"`<br>`"rhb"` | `"swipe"` | Type of navigation bar<br>[details](#navbar) |
-| navBarcolor        | X        | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
+| navBarColor        | X        | `ColorValue` | `"#CCCCCC"` | Color of navigation bar |
 | transparentNavBar  | X        | `boolean` | `false` | Make the navigation bar transparent.<br>[details](#transparentnavbar) |
 | hideNavBar         | X        | `boolean` | `false` | Hide the navigation bar<br>[details](#hidenavbar) |
 | transparentCamArea | X        | `boolean` | `false` | *NOTE: AndroidMockup only.*<br>Make the area around the camera transparent.<br>Only works when `isLandscape=true`.<br>[details](#transparentcamarea) |
@@ -184,7 +196,7 @@ Type of navigation bar.
 
 Make the navigation bar transparent.  
 
-- `false`: Navigation bar occupies its own space with `navBarcolor`. (default)
+- `false`: Navigation bar occupies its own space with `navBarColor`. (default)
 - `true`: Navigation bar no longer occupies its own area, but becomes part of the screen area.
   - **NOTE:** Swipe bar or buttons are rendered according to the type specified by `navBar` props.
 
@@ -212,7 +224,7 @@ Hide the navigation bar.
 
 #### transparentCamArea
 
-> `AndroidMockup`
+- `AndroidMockup`
 
 *AndroidMockup only.*  
 Make the area around the camera transparent.  
@@ -258,7 +270,7 @@ hideNavBar={true}
 
 #### other props
 
-| noRoundedScreen | frameColor="green"<br>statusbarColor="red"<br>navBarcolor="blue" |
+| noRoundedScreen | frameColor="green"<br>statusbarColor="red"<br>navBarColor="blue" |
 | :--: | :--: |
 | ![and_noRoundedScreen](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/9ded37e1-edff-43df-a10a-864e7dd4437c) | ![and_colors](https://github.com/jung-youngmin/react-native-device-mockup/assets/166787291/32de0f9d-f687-4d6d-8ab2-40f08b54fbfa) |
 
