@@ -192,7 +192,7 @@ function App(): React.JSX.Element {
             // statusbarColor="red"
             hideStatusBar
             navBar="bhr"
-            navBarcolor="blue"
+            navBarColor="blue"
             transparentNavBar
             hideNavBar={true}>
             <ScreenDemo />
@@ -207,7 +207,7 @@ function App(): React.JSX.Element {
             // statusbarColor="red"
             hideStatusBar
             navBar="bhr"
-            navBarcolor="blue"
+            navBarColor="blue"
             transparentNavBar
             hideNavBar
             transparentCamArea>
@@ -227,7 +227,7 @@ function App(): React.JSX.Element {
             // statusbarColor="red"
             // hideStatusBar
             // navBar="rhb"
-            // navBarcolor="blue"
+            // navBarColor="blue"
             // transparentNavBar
             // hideNavBar
           >
@@ -243,7 +243,7 @@ function App(): React.JSX.Element {
             // statusbarColor="red"
             // hideStatusBar
             // navBar="rhb"
-            // navBarcolor="blue"
+            // navBarColor="blue"
             // transparentNavBar
             // hideNavBar
           >
