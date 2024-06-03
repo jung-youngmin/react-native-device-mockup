@@ -1,3 +1,16 @@
+# ⚠️ OMG My mistake!
+
+I accidentally deleted the published npm package.  
+I wanted to `roll back` the version, but I ran the wrong command.
+
+There is a 24-hour limit, so I will re-publish again after 2024-06-04 12:30 (UTC)
+
+**don't** use
+
+``` bash
+npm unpublish react-native-device-mockup -f
+```
+
 # react-native-device-mockup
 
 ![Static Badge](https://img.shields.io/badge/React--Native-blue?style=for-the-badge&logo=react)
